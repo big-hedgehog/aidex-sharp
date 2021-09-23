@@ -1,7 +1,7 @@
-# AiDex Sharp 快速开发平台（ RuoYi-Vue）
+# AiDex Sharp
 
 #### Description
-AiDex Sharp快速开发平台：基于ruoyi-vue项目扩展，前端采用Ant-Design-VUE，代码易读易懂、界面简洁美观，不仅仅是一个后台开发框架，它是一个企业级快速开发解决方案，我们将把UI交互、快速开发能力追求到极致，适配国产数据库，国产中间件，将支持多租户、flowable工作流，移动APP，更多插件正在扩展中
+AiDex Sharp快速开发平台
 
 #### Software Architecture
 Software architecture description
