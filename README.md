@@ -30,8 +30,8 @@
 
 <table>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/181727_ca7b4b4c_9700683.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/182759_3cf8fb33_9700683.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2021/0923/234823_7d05456a_9700683.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2021/0923/234748_170e4ee7_9700683.png"/></td>
     </tr>
     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2021/0911/184041_c4d1f1aa_9700683.png"/></td>
@@ -58,7 +58,7 @@
 
 ## 在线体验
 
-演示地址：http://114.132.221.116  帐号：admin 密码：admin123123
+演示地址：http://aidex.vip  帐号：admin 密码：admin123123
 
 ## 框架优势
 
