@@ -32,7 +32,7 @@
 
 ## 官方QQ群
 
-<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=8_5QVK727Jg0sEuLSOWRLiMqOIBGB_lp&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Aidex Sharp快速开发平台3群" title="Aidex Sharp快速开发平台3群"> 208511180 </a>
+<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=8_5QVK727Jg0sEuLSOWRLiMqOIBGB_lp&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Aidex Sharp快速开发平台3群" title="Aidex Sharp快速开发平台3群"> 208511180 </a> 使用问题请入群由专人负责简答
 
 ## 系统截图
 
