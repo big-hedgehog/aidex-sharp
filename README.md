@@ -174,6 +174,7 @@
 
  **QQ：1125373330**  <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1125373330&amp;site=qq&amp;menu=yes">    点击这里给我发消息</a>
  **邮箱：1125373330@qq.com**  <a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1125373330@qq.com">   点击这里给我发邮件</a>
+  承接各种XX软件和APP定制开发，请让我发挥专业的技能（UI设计+前端开发7年工龄的程序媛，请对我有信心，超出你的期待哦）具体私聊
 
 ## 开发计划
 
