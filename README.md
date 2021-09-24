@@ -25,7 +25,7 @@
 
 ## 平台简介
 
- **AiDex Sharp 快速开发平台** 基于著名的开源项目“ **若依-RuoYi-Vue** ”改造而成，追求 **极致的UI交互体验** 和 **快速开发** ，一切向 **效率** 看齐， **重构优化** 后端的代码，对前端页面进行了 **美化** 。 **我们将持续升级，欢迎友友们收藏和点赞** 。
+ **AiDex Sharp 快速开发平台** 基于著名的开源项目“ **若依-RuoYi-Vue** ”改造而成，追求 **极致的UI交互体验** 和 **快速开发** ，一切向 **效率** 看齐， **重构优化** 后端的代码，对前端页面进行了 **美化** 。 **我们将持续升级，持续完善，欢迎友友们收藏和点赞** 。
 
 * 感谢[RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue)
 * 感谢[RuoYi-Antdv](https://gitee.com/fuzui/RuoYi-Antdv)
@@ -35,7 +35,7 @@
  **QQ：1125373330**  <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1125373330&amp;site=qq&amp;menu=yes">    点击这里给我发消息</a>
  **邮箱：1125373330@qq.com**  <a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1125373330@qq.com">   点击这里给我发邮件</a> 
   <br>
-  承接各种XX软件和APP定制开发，请让我发挥专业的技能（UI设计+前端开发7年工龄的程序媛，请对我有信心，超出你的期待哦）具体私聊
+   **承接各种XX软件和APP定制开发，请让我发挥专业的技能（UI设计+前端开发7年工龄的程序媛，请对我有信心，超出你的期待哦）具体私聊** 
 
 ## 官方QQ群
 
