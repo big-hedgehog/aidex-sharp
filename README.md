@@ -58,7 +58,7 @@
 
 ## 在线体验
 
-演示地址：http://aidex.vip  帐号：admin 密码：admin123123
+演示地址：http://114.132.221.116  帐号：admin 密码：admin123
 
 ## 框架优势
 
