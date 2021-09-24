@@ -30,6 +30,10 @@
 * 感谢[RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue)
 * 感谢[RuoYi-Antdv](https://gitee.com/fuzui/RuoYi-Antdv)
 
+## 官方QQ群
+
+<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=8_5QVK727Jg0sEuLSOWRLiMqOIBGB_lp&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Aidex Sharp快速开发平台3群" title="Aidex Sharp快速开发平台3群"> 208511180 </a>
+
 ## 系统截图
 
 <table>
@@ -165,9 +169,6 @@
 
  **> 未来会补充文档和视频，方便友友们使用！** 
 
-## 官方QQ群
-
-<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=8_5QVK727Jg0sEuLSOWRLiMqOIBGB_lp&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Aidex Sharp快速开发平台3群" title="Aidex Sharp快速开发平台3群"> 208511180 </a>
 
 ## 联系我们
 
