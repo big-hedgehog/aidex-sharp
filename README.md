@@ -25,7 +25,7 @@
 
 ## 平台简介
 
- **AiDex Sharp 快速开发平台** 基于著名的开源项目“ **若依-RuoYi-Vue** ”改造而成，追求 **极致的UI交互体验** 和 **快速开发** ，一切向 **效率** 看齐， **重构优化** 后端的代码，对前端页面进行了 **美化** 。
+ **AiDex Sharp 快速开发平台** 基于著名的开源项目“ **若依-RuoYi-Vue** ”改造而成，追求 **极致的UI交互体验** 和 **快速开发** ，一切向 **效率** 看齐， **重构优化** 后端的代码，对前端页面进行了 **美化** 。我们将持续升级，欢迎友友们收藏和点赞
 
 * 感谢[RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue)
 * 感谢[RuoYi-Antdv](https://gitee.com/fuzui/RuoYi-Antdv)
