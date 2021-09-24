@@ -30,6 +30,13 @@
 * 感谢[RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue)
 * 感谢[RuoYi-Antdv](https://gitee.com/fuzui/RuoYi-Antdv)
 
+## 联系我们
+
+ **QQ：1125373330**  <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1125373330&amp;site=qq&amp;menu=yes">    点击这里给我发消息</a>
+ **邮箱：1125373330@qq.com**  <a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1125373330@qq.com">   点击这里给我发邮件</a> 
+  <br>
+  承接各种XX软件和APP定制开发，请让我发挥专业的技能（UI设计+前端开发7年工龄的程序媛，请对我有信心，超出你的期待哦）具体私聊
+
 ## 官方QQ群
 
 <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=8_5QVK727Jg0sEuLSOWRLiMqOIBGB_lp&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Aidex Sharp快速开发平台3群" title="Aidex Sharp快速开发平台3群"> 208511180 </a> 使用问题请入群由专人负责简答
@@ -168,13 +175,6 @@
 * [《常见问题》](http://doc.ruoyi.vip/ruoyi-vue/document/hjbs.html#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
  **> 未来会补充文档和视频，方便友友们使用！** 
-
-
-## 联系我们
-
- **QQ：1125373330**  <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1125373330&amp;site=qq&amp;menu=yes">    点击这里给我发消息</a>
- **邮箱：1125373330@qq.com**  <a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1125373330@qq.com">   点击这里给我发邮件</a>
-  承接各种XX软件和APP定制开发，请让我发挥专业的技能（UI设计+前端开发7年工龄的程序媛，请对我有信心，超出你的期待哦）具体私聊
 
 ## 开发计划
 
