@@ -10,6 +10,10 @@
         <a href="http://spring.io/projects/spring-boot">
             <img src="https://img.shields.io/badge/spring--boot-2.3.1-green.svg" alt="spring-boot">
         </a>
+        <a href="https://gitee.com/y_project/RuoYi-Vue" target="_blank"><img src="https://img.shields.io/badge/RuoYi Vue-3.5.0-brightgreen" alt="Build Status"></a>&nbsp;
+        <a href="https://github.com/vueComponent/ant-design-vue" target="_blank"><img src="https://img.shields.io/badge/Ant Design Vue-1.7.2-brightgreen" alt="Build Status"></a>&nbsp;
+        <a href="https://github.com/vueComponent/ant-design-vue-pro" target="_blank"><img src="https://img.shields.io/badge/Ant Design Vue Pro-3.0.0-brightgreen" alt="Build Status">
+        </a>
         <a href="https://gitee.com/big-hedgehog/aidex-sharp">
             <img src="https://gitee.com/big-hedgehog/aidex-sharp/badge/star.svg?theme=dark" alt="Gitee star">
         </a>
@@ -21,17 +25,28 @@
 
 ## 平台简介
 
- **AiDex Sharp 快速开发平台** 基于著名的开源项目“ **若依-RuoYi-Vue** ”改造而成，追求 **极致的UI交互体验** 和 **快速开发** ，一切向 **效率** 看齐， **重构优化** 后端的代码，对前端页面进行了 **美化** 。
+ **AiDex Sharp 快速开发平台** 基于著名的开源项目“ **若依-RuoYi-Vue** ”改造而成，追求 **极致的UI交互体验** 和 **快速开发** ，一切向 **效率** 看齐， **重构优化** 后端的代码，对前端页面进行了 **美化** 。 **我们将持续升级，持续完善，欢迎友友们收藏和点赞** 。
 
 * 感谢[RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue)
 * 感谢[RuoYi-Antdv](https://gitee.com/fuzui/RuoYi-Antdv)
+
+## 联系我们
+
+ **QQ：1125373330**  <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1125373330&amp;site=qq&amp;menu=yes">    点击这里给我发消息</a>
+ **邮箱：1125373330@qq.com**  <a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1125373330@qq.com">   点击这里给我发邮件</a> 
+  <br>
+   **承接各种XX软件和APP定制开发，请让我发挥专业的技能（UI设计+前端开发7年工龄的程序媛，请对我有信心，超出你的期待哦）具体私聊** 
+
+## 官方QQ群
+
+<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=8_5QVK727Jg0sEuLSOWRLiMqOIBGB_lp&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Aidex Sharp快速开发平台3群" title="Aidex Sharp快速开发平台3群"> 208511180 </a> 使用问题请入群由专人负责简答
 
 ## 系统截图
 
 <table>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/181727_ca7b4b4c_9700683.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/182759_3cf8fb33_9700683.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2021/0923/234823_7d05456a_9700683.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2021/0923/234748_170e4ee7_9700683.png"/></td>
     </tr>
     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2021/0911/184041_c4d1f1aa_9700683.png"/></td>
@@ -58,7 +73,7 @@
 
 ## 在线体验
 
-演示地址：http://114.132.221.116  帐号：admin 密码：admin123123
+演示地址：http://114.132.221.116  帐号：admin 密码：admin123
 
 ## 框架优势
 
@@ -160,15 +175,6 @@
 * [《常见问题》](http://doc.ruoyi.vip/ruoyi-vue/document/hjbs.html#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
  **> 未来会补充文档和视频，方便友友们使用！** 
-
-## 官方QQ群
-
-<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=8_5QVK727Jg0sEuLSOWRLiMqOIBGB_lp&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Aidex Sharp快速开发平台3群" title="Aidex Sharp快速开发平台3群"> 208511180 </a>
-
-## 联系我们
-
- **QQ：1125373330**  <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1125373330&amp;site=qq&amp;menu=yes">    点击这里给我发消息</a>
- **邮箱：1125373330@qq.com**  <a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1125373330@qq.com">   点击这里给我发邮件</a>
 
 ## 开发计划
 
