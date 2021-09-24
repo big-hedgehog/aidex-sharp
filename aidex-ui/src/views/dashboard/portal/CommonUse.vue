@@ -45,22 +45,22 @@
         delayTime: 100,
         dataList: [
           {
-            path: '/system/user/SysUserIndex',
+            path: '/org/user',
             icon: 'pound',
             title: '用户管理'
           },
           {
-            path: '/system/dept/SysDeptIndex',
+            path: '/org/dept',
             icon: 'lock',
             title: '部门管理'
           },
           {
-            path: '/system/post/PostIndex',
+            path: '/org/post',
             icon: 'unlock',
             title: '岗位管理'
           },
           {
-            path: '/system/role/QueryList',
+            path: '/auth/role',
             icon: 'book',
             title: '角色管理'
           },
@@ -70,47 +70,47 @@
             title: '数据监控'
           },
           {
-            path: '/system/role/SysRoleAuth',
+            path: '/auth/sysAuth',
             icon: 'code',
             title: '菜单授权'
           },
           {
-            path: '/tool/gen/index',
+            path: '/tool/gen',
             icon: 'copy',
             title: '代码生成'
           },
           {
-            path: '/system/menu/MenuIndex',
+            path: '/sysSetting/menu',
             icon: 'windows',
             title: '菜单管理'
           },
           {
-            path: '/system/dict/DictIndex',
+            path: '/sysSetting/dict',
             icon: 'aliwangwang',
             title: '字典管理'
           },
           {
-            path: '/system/config/ConfigIndex',
+            path: '/sysSetting/config',
             icon: 'code',
             title: '参数设置'
           },
           {
-            path: '/monitor/operlog/OperlogIndex',
+            path: '/log/operlog',
             icon: 'contacts',
             title: '操作日志'
           },
           {
-            path: '/monitor/loginlog/LoginLogIndex',
+            path: '/log/loginLog',
             icon: 'api',
             title: '登录日志'
           },
           {
-            path: '/monitor/server/index',
+            path: '/monitor/server',
             icon: 'idcard',
             title: '服务监控'
           },
           {
-            path: '/monitor/cache/index',
+            path: '/monitor/cache',
             icon: 'shopping',
             title: '缓存监控'
           }
