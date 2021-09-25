@@ -22,7 +22,7 @@
         </a-col>
 
         <a-col :lg="12" :md="12" :sm="24">
-          <a-form-model-item label="登陆名" prop="userName" v-if="form.id == undefined">
+          <a-form-model-item label="登录名" prop="userName" v-if="form.id == undefined">
             <a-input v-model="form.userName" placeholder="请输入" />
           </a-form-model-item>
         </a-col>

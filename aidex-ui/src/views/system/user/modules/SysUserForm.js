@@ -185,7 +185,7 @@ export default {
           })
         },
      checkUserNameUnique (rule, value, callback) {
-       const msg = '登陆名称已存在'
+       const msg = '登录名称已存在'
        if (value === '') {
          callback()
        } else {
