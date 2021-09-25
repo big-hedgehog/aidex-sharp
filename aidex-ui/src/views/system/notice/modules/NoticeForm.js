@@ -198,11 +198,6 @@ export default {
           this.uploaderButtonStatus = true
           if (this.form.id !== undefined) {
             saveNotice(this.form).then(response => {
-              if (that.attachmentRefName) {
-                // 表单含有附件
-                   that.formId = response.data.id // 附件上传formId
-                   that.$refs[that.attachmentRefName].upload(that.formId) // 附件上传
-              } else {
                 this.$message.success(
                   '修改成功',
                   3
@@ -210,18 +205,9 @@ export default {
                 this.open = false
                 this.$emit('ok')
                 this.$emit('close')
-              }
             })
           } else {
                saveNotice(this.form).then(response => {
-                  if (that.attachmentRefName) {
-                    // 表单含有附件
-                    if (that.formId === '') {
-                       that.formId = response.data.id // 附件上传formId
-                       that.$refs[that.attachmentRefName].upload(that.formId) // 附件上传
-                    }
-                  } else {
-                    // 表单不含有附件
                     that.$message.success(
                       '新增成功',
                       3
@@ -229,32 +215,12 @@ export default {
                     that.open = false
                     that.$emit('ok')
                     this.$emit('close')
-                  }
                })
           }
         } else {
           return false
         }
       })
-    },
-    uploadCompleteFile: function (successFile, errorFile) {
-      if (errorFile.length > 0) {
-        // 有附件保存失败的处理
-        this.attachmentUploadStatus = false // 记录附件上传失败
-           this.$refs[this.attachmentRefName].$el.scrollIntoView() // 页面滚动到附件位置
-        this.uploaderButtonStatus = false // 按钮关闭loading状态
-      } else {
-        // 所有附件都保存成功的处理
-        this.attachmentUploadStatus = true // 记录附件上传成功
-        this.$message.success(
-          '保存成功',
-          3
-        )
-        this.open = false
-        this.$emit('ok')
-        this.$emit('close')
-      }
-       this.uploaderButtonStatus = false // 返回按钮可用
     },
     back () {
       this.$router.push('/system/notice')

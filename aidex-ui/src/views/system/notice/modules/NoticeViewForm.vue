@@ -20,35 +20,6 @@
           </div>
         </div>
       </div>
-
-      <a-form-model ref="form" :model="form" :rules="rules" slot="content" layout="vertical">
-        <a-row class="form-row" :gutter="32">
-          <a-col :lg="24" :md="24" :sm="24">
-            <a-form-model-item label="公告附件" prop="status">
-              <sys-upload
-                key="1"
-                element-id="1"
-                form-type="edit"
-                :drag-uploader="true"
-                :multiple="true"
-                :file-size-limit="40"
-                :ref="attachmentRefName"
-                :allow-encry="false"
-                :allow-same-name="false"
-                :allow-preview="true"
-                :allow-download="true"
-                :allow-delete="false"
-                :allow-add="false"
-                :chunk-enabled="true"
-                :colspan="2"
-                :form-id="formId"
-                :file-num-limit="10"
-                table-name="SYS_NOTICE"
-                @afterUpload="uploadCompleteFile" />
-            </a-form-model-item>
-          </a-col>
-        </a-row>
-      </a-form-model>
     </div>
   </ant-modal>
 </template>
