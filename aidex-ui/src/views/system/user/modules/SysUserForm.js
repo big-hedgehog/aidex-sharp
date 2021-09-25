@@ -20,6 +20,10 @@ export default {
       type: Array,
       required: true
     },
+    userSecretLevelOptions: {
+      type: Array,
+      required: true
+    },
     defalutExpandedKeys: {
       type: Array
     }
@@ -30,7 +34,7 @@ export default {
   },
   data () {
     const validateDeptId = (rule, value, callback) => {
-      if (value.ids === '') {
+      if (value.ids === '' || value.ids === undefined || value.ids === null) {
         callback(new Error('部门不允许为空'))
       } else {
         callback()
@@ -72,6 +76,7 @@ export default {
          { validator: this.checkUserNameUnique, trigger: 'change' }
          ],
         postIds: [{ required: true, message: '岗位不能为空', trigger: 'blur' }],
+        secretLevel: [{ required: true, message: '密级不能为空', trigger: 'blur' }],
         deptId: [{ required: true, message: '部门不能为空', trigger: 'blur', validator: validateDeptId }],
         email: [
           {
@@ -185,7 +190,7 @@ export default {
           })
         },
      checkUserNameUnique (rule, value, callback) {
-       const msg = '登录名称已存在'
+       const msg = '登陆名称已存在'
        if (value === '') {
          callback()
        } else {
