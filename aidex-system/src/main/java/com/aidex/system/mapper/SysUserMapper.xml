@@ -106,7 +106,7 @@
 			AND date_format(t.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
 		</if>
 		<if test="deptId != null and deptId != ''">
-			AND (t.dept_id = #{deptId} OR t.dept_id IN ( SELECT t.id FROM sys_dept t WHERE find_in_set(#{deptId}, t.parent_ids) ))
+			AND t.dept_id IN (select id from sys_dept t where t.parent_ids like CONCAT((select parent_ids from sys_dept t where t.id = #{deptId}),'%'))
 		</if>
 	</sql>
 	<select id="get" resultType="SysUser">

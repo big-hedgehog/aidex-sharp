@@ -269,7 +269,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectChildrenDeptById"  resultType="SysDept">
-		select * from sys_dept where find_in_set(#{id}, ancestors)
+		select * from sys_dept t
+		where  t.parent_ids like CONCAT(#{parentIds},'%')
 	</select>
 	
 	<select id="selectNormalChildByParentIds" resultType="int">
