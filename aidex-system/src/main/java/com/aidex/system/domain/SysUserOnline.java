@@ -1,5 +1,9 @@
 package com.aidex.system.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 /**
  * 当前在线会话
  * 
@@ -29,7 +33,8 @@ public class SysUserOnline
     private String os;
 
     /** 登录时间 */
-    private Long loginTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date loginTime;
 
     public String getTokenId()
     {
@@ -101,12 +106,12 @@ public class SysUserOnline
         this.os = os;
     }
 
-    public Long getLoginTime()
+    public Date getLoginTime()
     {
         return loginTime;
     }
 
-    public void setLoginTime(Long loginTime)
+    public void setLoginTime(Date loginTime)
     {
         this.loginTime = loginTime;
     }

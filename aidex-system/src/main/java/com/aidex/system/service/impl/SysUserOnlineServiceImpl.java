@@ -6,6 +6,8 @@ import com.aidex.common.utils.StringUtils;
 import com.aidex.system.domain.SysUserOnline;
 import com.aidex.system.service.ISysUserOnlineService;
 
+import java.util.Date;
+
 /**
  * 在线用户 服务层处理
  * 
@@ -86,7 +88,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService
         sysUserOnline.setLoginLocation(user.getLoginLocation());
         sysUserOnline.setBrowser(user.getBrowser());
         sysUserOnline.setOs(user.getOs());
-        sysUserOnline.setLoginTime(user.getLoginTime());
+        sysUserOnline.setLoginTime(new Date(user.getLoginTime()));
         if (StringUtils.isNotNull(user.getUser().getSysDept()))
         {
             sysUserOnline.setDeptName(user.getUser().getSysDept().getDeptName());
