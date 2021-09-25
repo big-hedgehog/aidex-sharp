@@ -269,7 +269,6 @@ export default {
         {
           title: '创建时间',
           ellipsis: true,
-          width: 100,
           sorter: true,
           dataIndex: 'createTime',
           align: 'center'
