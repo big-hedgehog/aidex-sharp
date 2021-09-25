@@ -192,7 +192,6 @@ export default {
   },
   created () {
     this.getTableConfig()
-    this.addListener()
     this.getSettingBtnTop(this.sSize)
   },
   mounted () {},

@@ -119,7 +119,7 @@
       }
     },
     created () {
-      this.addListener()
+
     },
     beforeDestroy () {
       this.removeListener()

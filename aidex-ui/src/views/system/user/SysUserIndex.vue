@@ -270,6 +270,7 @@ export default {
           title: '创建时间',
           ellipsis: true,
           sorter: true,
+          width: 200,
           dataIndex: 'createTime',
           align: 'center'
         },
