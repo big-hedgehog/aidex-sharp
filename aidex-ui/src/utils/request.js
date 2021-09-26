@@ -77,6 +77,7 @@ request.interceptors.response.use((res) => {
   const msg = errorCode[code] || res.data.msg || errorCode['default']
   if (code === 401) {
     notification.open({
+      key: '登录过期',
       message: '系统提示',
       description: '登录状态已过期，请重新登录',
       btn: h => {

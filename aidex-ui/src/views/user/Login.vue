@@ -102,6 +102,8 @@ export default {
     },
     ...mapActions(['Login', 'Logout']),
     handleSubmit () {
+      // 关闭登录过期的提示框
+      this.$notification.close('登录过期')
       this.logining = true
       this.$refs.form.validate(valid => {
         if (valid) {
