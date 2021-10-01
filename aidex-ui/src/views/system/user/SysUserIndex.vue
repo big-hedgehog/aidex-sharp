@@ -468,10 +468,12 @@ export default {
        this.deptOptions = treeDataOption
     },
     handleTableChange (pagination, filters, sorter) {
-          this.queryParam.orderByColumn = 't.' + sorter.field
-          this.queryParam.isAsc = sorter.order
-          this.getList()
-        }
+      if (sorter.field !== undefined && sorter.field !== null && sorter.field !== '') {
+        this.queryParam.orderByColumn = 't.' + sorter.field
+        this.queryParam.isAsc = sorter.order
+      }
+      this.getList()
+    }
   }
 }
 </script>
