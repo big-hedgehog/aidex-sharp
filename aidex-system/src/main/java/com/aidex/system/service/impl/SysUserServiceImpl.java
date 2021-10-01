@@ -380,13 +380,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
      */
     @Override
     @Transactional(readOnly = false)
-    public int deleteUserById(String userId)
+    public boolean deleteUserById(String userId)
     {
         // 删除用户与角色关联
         userRoleMapper.deleteUserRoleByUserId(userId);
         // 删除用户与岗位表
         userPostMapper.deleteUserPostByUserId(userId);
-        return mapper.deleteUserById(userId);
+        return remove(new SysUser(userId));
     }
 
     /**

@@ -240,6 +240,7 @@
 			#{DEL_FLAG_NORMAL}
 		)
 	</insert>
+
 	<update id="update">
 		update sys_user
 		<set>
@@ -316,8 +317,6 @@
 		left join sys_role r on r.id = ur.role_id
 	</sql>
 
-
-
 	<select id="selectUserByUserName" parameterType="java.util.Map" resultMap="SysUserResult">
 		<include refid="selectUserVo"/>
 		where t.user_name = #{userName} and t.del_flag = #{DEL_FLAG_NORMAL}
@@ -352,10 +351,6 @@
  		update sys_user set password = #{password} where user_name = #{userName}
 	</update>
 
-	<delete id="deleteUserById" parameterType="String">
- 		delete from sys_user where id = #{id}
- 	</delete>
-
 	<delete id="delete">
 		UPDATE sys_user SET
 			del_flag = #{DEL_FLAG_DELETE}
@@ -379,7 +374,6 @@
 		</foreach>
 	</delete>
 
-
 	<select id="getUserInfoByIds" parameterType="java.util.List" resultType="java.util.HashMap">
 		SELECT
 		t.id,
@@ -402,7 +396,6 @@
 			)
 		</where>
 	</select>
-
 
 	<select id="findRoleUserList" resultType="SysUser">
 		SELECT

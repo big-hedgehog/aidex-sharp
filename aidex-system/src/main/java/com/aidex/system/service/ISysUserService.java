@@ -146,7 +146,7 @@ public interface ISysUserService extends BaseService<SysUser>
      * @return 结果
      */
     @Transactional(readOnly = false)
-    public int deleteUserById(String userId);
+    public boolean deleteUserById(String userId);
 
     /**
      * 批量删除用户信息
