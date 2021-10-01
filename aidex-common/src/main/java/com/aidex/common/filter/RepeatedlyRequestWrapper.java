@@ -13,7 +13,7 @@ import com.aidex.common.utils.http.HttpHelper;
 
 /**
  * 构建可重复读取inputStream的request
- * 
+ *
  * @author ruoyi
  */
 public class RepeatedlyRequestWrapper extends HttpServletRequestWrapper
@@ -38,16 +38,19 @@ public class RepeatedlyRequestWrapper extends HttpServletRequestWrapper
     @Override
     public ServletInputStream getInputStream() throws IOException
     {
-
         final ByteArrayInputStream bais = new ByteArrayInputStream(body);
-
         return new ServletInputStream()
         {
-
             @Override
             public int read() throws IOException
             {
                 return bais.read();
+            }
+
+            @Override
+            public int available() throws IOException
+            {
+                return body.length;
             }
 
             @Override
