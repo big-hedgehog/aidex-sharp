@@ -41,6 +41,7 @@
 		t.version AS "version",
 		t.del_flag AS "delFlag"
 	</sql>
+
 	<!--用户返回对象集合时使用-->
 	<resultMap type="SysUser" id="SysUserResult">
 		<id     property="id"           column="id"      />
@@ -106,9 +107,10 @@
 			AND date_format(t.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
 		</if>
 		<if test="deptId != null and deptId != ''">
-			AND t.dept_id IN (select id from sys_dept t where t.parent_ids like CONCAT((select parent_ids from sys_dept t where t.id = #{deptId}),'%'))
+			AND t.dept_id IN (select d.id from sys_dept d where concat(d.parent_ids, '/') like concat('%', #{deptId}, '/%') )
 		</if>
 	</sql>
+
 	<select id="get" resultType="SysUser">
 		SELECT
 		<include refid="userColumns"/>,
@@ -137,6 +139,7 @@
 			</otherwise>
 		</choose>
 	</select>
+
 	<select id="findListWithUnique" resultType="SysUser">
 		SELECT
 		1
@@ -161,6 +164,7 @@
 			AND t.id != #{notEqualId}
 		</if>
 	</select>
+
 	<insert id="insert" >
 		insert into sys_user(
 		id,
