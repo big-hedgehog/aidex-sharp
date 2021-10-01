@@ -1,7 +1,8 @@
 package com.aidex.common.exception.file;
 
-import java.util.Arrays;
 import org.apache.commons.fileupload.FileUploadException;
+
+import java.util.Arrays;
 
 /**
  * 文件上传 误异常类
@@ -64,6 +65,16 @@ public class InvalidExtensionException extends FileUploadException
         private static final long serialVersionUID = 1L;
 
         public InvalidMediaExtensionException(String[] allowedExtension, String extension, String filename)
+        {
+            super(allowedExtension, extension, filename);
+        }
+    }
+
+    public static class InvalidVideoExtensionException extends InvalidExtensionException
+    {
+        private static final long serialVersionUID = 1L;
+
+        public InvalidVideoExtensionException(String[] allowedExtension, String extension, String filename)
         {
             super(allowedExtension, extension, filename);
         }

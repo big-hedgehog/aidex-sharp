@@ -1,5 +1,6 @@
 package com.aidex.common.config;
 
+import com.aidex.common.utils.DateUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,12 @@ import java.io.File;
 @ConfigurationProperties(prefix = "aidex")
 public class AiDexConfig
 {
+
+    /**
+     * 文件存储后缀
+     */
+    private static String filePathSubfix = File.separator + DateUtils.getDate("yyyy") + File.separator + DateUtils.getDate("MM") + File.separator + DateUtils.getDate("dd");
+
     /** 项目名称 */
     private String name;
 
@@ -96,32 +103,33 @@ public class AiDexConfig
     }
 
     /**
+     /**
+     * 获取导入上传路径
+     */
+    public static String getImportPath() {
+        return getProfile() + "/import" + filePathSubfix;
+    }
+
+    /**
      * 获取头像上传路径
      */
-    public static String getAvatarPath()
-    {
-//        return getProfile() + "/avatar";
-        return getProfile() + File.separator +"avatar";
+    public static String getAvatarPath() {
+        return getProfile() + File.separator + "avatar" + filePathSubfix;
     }
 
     /**
      * 获取下载路径
      */
-    public static String getDownloadPath()
-    {
-
-//        return getProfile() + "/download/";
-        return getProfile() + File.separator + "download" +File.separator ;
+    public static String getDownloadPath() {
+        return getProfile() + File.separator + "download" + filePathSubfix;
     }
 
     /**
      * 获取上传路径
      */
-    public static String getUploadPath()
-    {
-
-//        return getProfile() + "/upload";
-        return getProfile() + File.separator  + "upload";
+    public static String getUploadPath() {
+        //根据年月日分组
+        return getProfile() + File.separator + "upload" + filePathSubfix;
     }
 
     public static String getDbName() {

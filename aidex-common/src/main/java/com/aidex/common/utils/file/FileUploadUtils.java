@@ -1,17 +1,18 @@
 package com.aidex.common.utils.file;
 
-import java.io.File;
-import java.io.IOException;
+import com.ruoyi.common.config.RuoYiConfig;
+import com.ruoyi.common.constant.Constants;
+import com.ruoyi.common.exception.file.FileNameLengthLimitExceededException;
+import com.ruoyi.common.exception.file.FileSizeLimitExceededException;
+import com.ruoyi.common.exception.file.InvalidExtensionException;
+import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.utils.uuid.IdUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
-import com.aidex.common.config.AiDexConfig;
-import com.aidex.common.constant.Constants;
-import com.aidex.common.exception.file.FileNameLengthLimitExceededException;
-import com.aidex.common.exception.file.FileSizeLimitExceededException;
-import com.aidex.common.exception.file.InvalidExtensionException;
-import com.aidex.common.utils.DateUtils;
-import com.aidex.common.utils.StringUtils;
-import com.aidex.common.utils.uuid.IdUtils;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * 文件上传工具类
@@ -33,7 +34,7 @@ public class FileUploadUtils
     /**
      * 默认上传的地址
      */
-    private static String defaultBaseDir = AiDexConfig.getProfile();
+    private static String defaultBaseDir = RuoYiConfig.getProfile();
 
     public static void setDefaultBaseDir(String defaultBaseDir)
     {
@@ -123,32 +124,29 @@ public class FileUploadUtils
     {
         String fileName = file.getOriginalFilename();
         String extension = getExtension(file);
-//        fileName = DateUtils.datePath() + "/" + IdUtils.fastUUID() + "." + extension;
-        fileName = DateUtils.datePath() + File.separator + IdUtils.fastUUID() + "." + extension;
+        fileName = DateUtils.datePath() + "/" + IdUtils.fastUUID() + "." + extension;
         return fileName;
     }
 
-    private static final File getAbsoluteFile(String uploadDir, String fileName) throws IOException
+    public static final File getAbsoluteFile(String uploadDir, String fileName) throws IOException
     {
         File desc = new File(uploadDir + File.separator + fileName);
 
-        if (!desc.getParentFile().exists())
-        {
-            desc.getParentFile().mkdirs();
-        }
         if (!desc.exists())
         {
-            desc.createNewFile();
+            if (!desc.getParentFile().exists())
+            {
+                desc.getParentFile().mkdirs();
+            }
         }
         return desc;
     }
 
-    private static final String getPathFileName(String uploadDir, String fileName) throws IOException
+    public static final String getPathFileName(String uploadDir, String fileName) throws IOException
     {
-        int dirLastIndex = AiDexConfig.getProfile().length() + 1;
+        int dirLastIndex = RuoYiConfig.getProfile().length() + 1;
         String currentDir = StringUtils.substring(uploadDir, dirLastIndex);
-//        String pathFileName = Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
-        String pathFileName = Constants.RESOURCE_PREFIX +  File.separator  + currentDir +  File.separator  + fileName;
+        String pathFileName = Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
         return pathFileName;
     }
 
@@ -186,6 +184,11 @@ public class FileUploadUtils
             else if (allowedExtension == MimeTypeUtils.MEDIA_EXTENSION)
             {
                 throw new InvalidExtensionException.InvalidMediaExtensionException(allowedExtension, extension,
+                        fileName);
+            }
+            else if (allowedExtension == MimeTypeUtils.VIDEO_EXTENSION)
+            {
+                throw new InvalidExtensionException.InvalidVideoExtensionException(allowedExtension, extension,
                         fileName);
             }
             else

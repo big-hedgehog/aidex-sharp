@@ -1,7 +1,8 @@
 package com.aidex.common.utils.file;
 
-import java.io.File;
 import org.apache.commons.lang3.StringUtils;
+
+import java.io.File;
 
 /**
  * 文件类型工具类
@@ -37,7 +38,7 @@ public class FileTypeUtils
      */
     public static String getFileType(String fileName)
     {
-        int separatorIndex = fileName.lastIndexOf('.');
+        int separatorIndex = fileName.lastIndexOf(".");
         if (separatorIndex < 0)
         {
             return "";
