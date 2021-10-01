@@ -1,5 +1,7 @@
 package com.aidex.common.core.controller;
 
+import com.aidex.common.core.domain.model.LoginUser;
+import com.aidex.common.utils.SecurityUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.aidex.common.constant.HttpStatus;
@@ -24,7 +26,7 @@ import java.util.List;
 
 /**
  * web层通用数据处理
- * 
+ *
  * @author ruoyi
  */
 public class BaseController
@@ -151,6 +153,38 @@ public class BaseController
     public AjaxResult error(String message)
     {
         return AjaxResult.error(message);
+    }
+
+    /**
+     * 获取用户缓存信息
+     */
+    public LoginUser getLoginUser()
+    {
+        return SecurityUtils.getLoginUser();
+    }
+
+    /**
+     * 获取登录用户id
+     */
+    public String getUserId()
+    {
+        return getLoginUser().getUser().getId();
+    }
+
+    /**
+     * 获取登录部门id
+     */
+    public String getDeptId()
+    {
+        return getLoginUser().getUser().getDeptId();
+    }
+
+    /**
+     * 获取登录用户名
+     */
+    public String getUsername()
+    {
+        return getLoginUser().getUsername();
     }
 
 
