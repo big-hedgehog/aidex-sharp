@@ -38,5 +38,5 @@ export function resolveBlob (res, mimeType) {
   aLink.setAttribute('download', fileName) // 设置下载文件名称
   document.body.appendChild(aLink)
   aLink.click()
-  document.body.removeChild(aLink);
+  document.body.removeChild(aLink)
 }
