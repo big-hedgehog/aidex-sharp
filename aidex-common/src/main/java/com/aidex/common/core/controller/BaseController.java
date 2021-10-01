@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class BaseController
 {
-    protected final Logger logger = LoggerFactory.getLogger(BaseController.class);
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 将前台传递过来的日期格式的字符串，自动转化为Date类型
