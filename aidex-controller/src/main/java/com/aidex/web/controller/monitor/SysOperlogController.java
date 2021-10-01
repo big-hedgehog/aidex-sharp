@@ -47,6 +47,7 @@ public class SysOperlogController extends BaseController
         return util.exportExcel(list, "操作日志");
     }
 
+    @Log(title = "操作日志", businessType = BusinessType.DELETE)
     @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
     @DeleteMapping("/{operIds}")
     public R remove(@PathVariable String[] operIds)
