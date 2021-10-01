@@ -1,15 +1,10 @@
 package com.aidex.common.utils;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import com.aidex.common.core.text.StrFormatter;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DecimalFormat;
+import java.util.*;
 
 /**
  * 字符串工具类
@@ -316,7 +311,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
     }
 
     /**
-     * 驼峰转下划线
+     * 驼下划线转驼峰命名
      */
     public static String toUnderScoreCase(String str)
     {
