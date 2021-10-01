@@ -2,6 +2,7 @@ package com.aidex.web.controller.system;
 
 import com.aidex.common.annotation.Log;
 import com.aidex.common.config.AiDexConfig;
+import com.aidex.common.constant.UserConstants;
 import com.aidex.common.core.controller.BaseController;
 import com.aidex.common.core.domain.AjaxResult;
 import com.aidex.common.core.domain.R;
@@ -10,6 +11,7 @@ import com.aidex.common.core.domain.model.LoginUser;
 import com.aidex.common.enums.BusinessType;
 import com.aidex.common.utils.SecurityUtils;
 import com.aidex.common.utils.ServletUtils;
+import com.aidex.common.utils.StringUtils;
 import com.aidex.common.utils.file.FileUploadUtils;
 import com.aidex.framework.web.service.TokenService;
 import com.aidex.system.service.ISysUserService;
@@ -59,6 +61,10 @@ public class SysProfileController extends BaseController
     @PutMapping
     public R updateProfile(@RequestBody SysUser user)
     {
+        //校验手机号
+        userService.checkPhoneUnique(user);
+        //校验邮箱
+        userService.checkEmailUnique(user);
         SysUser oldUser = userService.get(user.getId());
         user.setVersion(oldUser.getVersion());
         if (userService.updateUserProfile(user))
@@ -73,7 +79,6 @@ public class SysProfileController extends BaseController
             tokenService.setLoginUser(loginUser);
             return R.success();
         }
-        //return AjaxResult.error("修改个人信息异常，请联系管理员");
         return R.fail("修改个人信息异常，请联系管理员");
     }
 
