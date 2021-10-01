@@ -202,6 +202,10 @@ public class ExcelUtil<T>
                 // 从第2行开始取数据,默认第一行是表头.
                 Row row = sheet.getRow(i);
                 T entity = null;
+                if(row == null)
+                {
+                    continue;
+                }
                 for (Map.Entry<Integer, Field> entry : fieldsMap.entrySet())
                 {
                     Object val = this.getCellValue(row, entry.getKey());
