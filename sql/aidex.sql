@@ -777,41 +777,6 @@ CREATE TABLE `sys_login_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统访问记录';
 
 -- ----------------------------
--- Records of sys_login_log
--- ----------------------------
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-18 10:40:14', '01ab48477cfe425ba238bd295970451d', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '1', '验证码已失效', '2021-09-18 10:40:10', '066a772323614a15a950169a74377447', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '退出成功', '2021-09-22 21:27:09', '077ca569196f4840afe342d29819d85b', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-22 21:33:09', '0caadd000e9d4511ab6b3da6443895ec', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '退出成功', '2021-09-22 21:15:42', '0dcfb75a7c72432aa7bd544254605f69', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '退出成功', '2021-09-22 21:32:44', '0eb0c14406da499bbb85c23ff7daccfa', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '1', '用户不存在/密码错误', '2021-09-17 15:04:25', '18992b1f49444494b810ec030a4bef22', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '10.216.70.100', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-09-23 13:45:18', '18c077933cf040dc8e65a9cd6f0f4c24', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-23 13:35:15', '1b153d0a634f473893df5e3e5844dda4', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-23 09:05:17', '234321385e184432968bddd6f92b01bd', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-17 16:44:13', '2c621bbfe4c647fe8ae8b63b15516200', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '退出成功', '2021-09-23 09:05:08', '4a85ba33d846452eb54e738e6774a6d8', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-22 21:27:13', '4e1127d3618c4b329972d2c25d4ba6aa', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '退出成功', '2021-09-23 13:49:02', '5b031436054d44ef98f6573ab9555e55', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '1', '用户不存在/密码错误', '2021-09-17 15:04:06', '635536fba77f4826ba829bc9a93c4e5a', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-23 13:49:58', '6a6968ef14a64ecdbb309c4e6a488089', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-23 09:02:36', '6d65ab6396304c24be41f5614f0f1153', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '10.216.60.21', '内网IP', 'Chrome 9', 'Windows 7', '1', '验证码已失效', '2021-09-23 09:50:02', '8ca3db30361f44afbd37380eadbd404a', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-18 14:50:04', '9b903e23ac984922855129016c430c19', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-23 09:50:15', 'a9b00929c07b4d67816651c7ab124c79', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-18 11:27:31', 'ac0067d438cd4ae2bdd401eff0daba64', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-17 15:04:41', 'be802723b7c74158ab8f122208448885', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '10.216.70.100', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2021-09-23 09:07:21', 'c07f737fe56e4ff3b71471de47261231', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '退出成功', '2021-09-23 13:51:07', 'c53f2b61d72649c8a5c84f649df0e999', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '退出成功', '2021-09-23 09:05:52', 'd93a4c5d3d3b42689709f1a78c7fc769', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '1', '用户不存在/密码错误', '2021-09-17 15:04:15', 'db26b746c9fa409797e0648fa3cc27cc', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-23 09:06:09', 'e100a85e0960410c81ebd24ab1d66759', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-22 19:18:07', 'e14edaab79d045c7ba41f96207af96c1', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-22 21:21:42', 'e5cc43c39465406aa4c9fe878c3514f1', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-23 13:51:30', 'f1d38fbe504d481291f07925f7c71f8b', null, '0');
-INSERT INTO `sys_login_log` VALUES ('admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 7', '0', '登录成功', '2021-09-18 13:43:01', 'fa0d4f44f3f2415996dba36040e1dfd5', null, '0');
-
--- ----------------------------
 -- Table structure for `sys_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
@@ -1094,10 +1059,10 @@ CREATE TABLE `sys_post` (
 -- ----------------------------
 -- Records of sys_post
 -- ----------------------------
-INSERT INTO `sys_post` VALUES ('1', 'ceo', '董事长', '10', '0', 'admin', null, '2021-01-30 13:27:43', '1', '2021-09-05 10:11:01', '127.0.0.1', '1', null, '0');
-INSERT INTO `sys_post` VALUES ('2', 'se', '项目经理', '20', '0', 'admin', null, '2021-01-30 13:27:43', '1', '2021-09-05 10:10:50', '127.0.0.1', '1', null, '0');
-INSERT INTO `sys_post` VALUES ('3', 'hr', '人力资源', '30', '0', 'admin', null, '2021-01-30 13:27:43', '1', '2021-09-05 10:11:12', '127.0.0.1', '1', null, '0');
-INSERT INTO `sys_post` VALUES ('4', 'user', '普通员工', '40', '0', 'admin', null, '2021-01-30 13:27:43', '1', '2021-09-05 10:11:16', '127.0.0.1', '1', null, '0');
+INSERT INTO `sys_post` VALUES ('1', 'ceo', '董事长', '10', '0', 'admin', null, '2021-01-30 13:27:43', '1', '2021-09-05 10:11:01', '127.0.0.1', '1', 1, '0');
+INSERT INTO `sys_post` VALUES ('2', 'se', '项目经理', '20', '0', 'admin', null, '2021-01-30 13:27:43', '1', '2021-09-05 10:10:50', '127.0.0.1', '1', 1, '0');
+INSERT INTO `sys_post` VALUES ('3', 'hr', '人力资源', '30', '0', 'admin', null, '2021-01-30 13:27:43', '1', '2021-09-05 10:11:12', '127.0.0.1', '1', 1, '0');
+INSERT INTO `sys_post` VALUES ('4', 'user', '普通员工', '40', '0', 'admin', null, '2021-01-30 13:27:43', '1', '2021-09-05 10:11:16', '127.0.0.1', '1', 1, '0');
 
 -- ----------------------------
 -- Table structure for `sys_role`
