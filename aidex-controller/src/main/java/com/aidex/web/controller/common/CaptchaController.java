@@ -5,6 +5,7 @@ import com.aidex.common.core.domain.AjaxResult;
 import com.aidex.common.core.redis.RedisCache;
 import com.aidex.common.utils.sign.Base64;
 import com.aidex.common.utils.uuid.IdUtils;
+import com.aidex.framework.cache.ConfigUtils;
 import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,9 +47,13 @@ public class CaptchaController
     @GetMapping("/captchaImage")
     public AjaxResult getCode(HttpServletResponse response) throws IOException
     {
-        AjaxResult ajax = null;
-
-
+        AjaxResult ajax = AjaxResult.success();
+        boolean captchaOnOff = ConfigUtils.getConfigBooleanValueByKey("sys.captcha.onOff",true);
+        ajax.put("captchaOnOff", captchaOnOff);
+        if (!captchaOnOff)
+        {
+            return ajax;
+        }
         try {
             // 保存验证码信息
             String uuid = IdUtils.simpleUUID();

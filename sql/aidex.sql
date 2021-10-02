@@ -496,8 +496,8 @@ CREATE TABLE `sys_config` (
 -- ----------------------------
 INSERT INTO `sys_config` VALUES ('主框架页-默认皮肤样式名称', 'sys.index.skinName', 'skin-blue', 'Y', 'admin', '2021-01-30 13:27:43', '1', '2021-07-06 15:13:33', '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow', '1', '4', '0', '127.0.0.1', '1');
 INSERT INTO `sys_config` VALUES ('用户管理-账号初始密码', 'sys.user.initPassword', '123456', 'Y', 'admin', '2021-01-30 13:27:43', '', null, '初始化密码 123456', '2', '1', '0', null, '1');
-INSERT INTO `sys_config` VALUES ('系统下载方式', 'system.upload.save.type', 'Disk', 'Y', 'admin', '2021-03-12 17:43:10', '1', '2021-09-05 12:10:32', 'Disk', '2345678935345', '6', '0', '127.0.0.1', '1');
 INSERT INTO `sys_config` VALUES ('主框架页-侧边栏主题', 'sys.index.sideTheme', 'theme-dark', 'Y', 'admin', '2021-01-30 13:27:43', '1', '2021-08-06 11:39:33', '深色主题theme-dark，浅色主题theme-light   ', '3', '5', '0', '127.0.0.1', '1');
+INSERT INTO `sys_config` VALUES ('验证码开关', 'sys.captcha.onOff', 'true', 'Y', '1', '2021-09-29 23:51:21', '1', '2021-09-29 23:51:21', '是否开启验证码功能（true开启，false关闭）', 'b3158f15cbed4a3d93e43f29d5fb5893', '1', '0', '127.0.0.1', '100');
 
 -- ----------------------------
 -- Table structure for `sys_dept`
