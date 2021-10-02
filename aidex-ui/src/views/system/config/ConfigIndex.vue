@@ -92,7 +92,7 @@
           <a-button @click="handleExport" v-hasPermi="['system:config:export']">
             <a-icon type="download" />导出
           </a-button>
-          <a-button @click="handleClearCache" v-hasPermi="['system:config:remove']">
+          <a-button @click="handleRefreshCache" v-hasPermi="['system:config:remove']">
             <a-icon type="redo" />刷新缓存
           </a-button>
         </div>
@@ -329,7 +329,7 @@ export default {
       })
     },
     /** 清理缓存按钮操作 */
-    handleClearCache () {
+    handleRefreshCache () {
       refreshCache().then(response => {
         this.$message.success(
           '刷新成功',

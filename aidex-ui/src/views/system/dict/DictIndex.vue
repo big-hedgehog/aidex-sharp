@@ -95,7 +95,7 @@
           <a-button type="" @click="handleExport" v-hasPermi="['system:dict:export']">
             <a-icon type="download" />导出
           </a-button>
-          <a-button type="" @click="handleClearCache" v-hasPermi="['system:dict:remove']">
+          <a-button type="" @click="handleRefreshCache" v-hasPermi="['system:dict:remove']">
             <a-icon type="redo" />刷新缓存
           </a-button>
         </div>
@@ -131,7 +131,7 @@
 </template>
 <script>
 
-import { listType, delType, exportType, clearCache } from '@/api/system/dict/type'
+import { listType, delType, exportType, refreshCache } from '@/api/system/dict/type'
 import DictTypeEditForm from './modules/DictTypeEditForm'
 import AdvanceTable from '@/components/pt/table/AdvanceTable'
 import DictTypeAddForm from './modules/DictTypeAddForm'
@@ -337,10 +337,10 @@ export default {
       })
     },
     /** 清理缓存按钮操作 */
-    handleClearCache () {
-      clearCache().then(response => {
+    handleRefreshCache () {
+      refreshCache().then(response => {
         this.$message.success(
-          '清理成功',
+          '刷新成功',
           3
         )
       })
