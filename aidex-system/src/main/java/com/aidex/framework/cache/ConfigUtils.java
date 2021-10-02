@@ -158,6 +158,6 @@ public class ConfigUtils implements CacheUtil {
     }
 
     public static void setConfigCache(SysConfig sysConfig) {
-        REDIS_CACHE.setCacheMapValue(CACHE_NAME, ConfigUtils.getCacheKey(sysConfig.getConfigKey()), sysConfig);
+        REDIS_CACHE.setCacheMapValue(CACHE_NAME, getCacheKey(sysConfig.getConfigKey()), sysConfig);
     }
 }

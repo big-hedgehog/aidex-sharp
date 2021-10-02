@@ -5,7 +5,6 @@ import com.aidex.common.constant.UserConstants;
 import com.aidex.common.core.domain.entity.RegisterBody;
 import com.aidex.common.core.domain.entity.SysUser;
 import com.aidex.common.core.redis.RedisCache;
-import com.aidex.common.core.text.Convert;
 import com.aidex.common.exception.user.CaptchaException;
 import com.aidex.common.exception.user.CaptchaExpireException;
 import com.aidex.common.utils.MessageUtils;

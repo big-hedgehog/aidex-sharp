@@ -79,18 +79,19 @@ public class SysDictTypeController extends BaseController
     @DeleteMapping("/{ids}")
     public R remove(@PathVariable String[] ids)
     {
-        return R.status(dictTypeService.deleteDictTypeByIds(ids));
+        dictTypeService.deleteDictTypeByIds(ids);
+        return R.success();
     }
 
     /**
-     * 清空缓存
+     * 刷新缓存
      */
     @PreAuthorize("@ss.hasPermi('system:dict:remove')")
     @Log(title = "字典类型", businessType = BusinessType.CLEAN)
-    @DeleteMapping("/clearCache")
-    public R clearCache()
+    @DeleteMapping("/refreshCache")
+    public R refreshCache()
     {
-        dictTypeService.clearCache();
+        dictTypeService.refreshCache();
         return R.status(true);
     }
 

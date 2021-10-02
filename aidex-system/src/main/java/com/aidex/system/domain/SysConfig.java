@@ -44,7 +44,7 @@ public class SysConfig extends BaseEntity<SysConfig>
     
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
             .append("configName", getConfigName())
             .append("configKey", getConfigKey())

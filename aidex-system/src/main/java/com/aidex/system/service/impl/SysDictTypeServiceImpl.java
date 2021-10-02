@@ -1,10 +1,14 @@
 package com.aidex.system.service.impl;
 
+import com.aidex.common.constant.UserConstants;
 import com.aidex.common.core.service.BaseServiceImpl;
 import com.aidex.common.exception.BizException;
 import com.aidex.common.exception.CustomException;
+import com.aidex.common.utils.StringUtils;
+import com.aidex.framework.cache.ConfigUtils;
 import com.aidex.framework.cache.DictUtils;
 import com.aidex.system.common.SysErrorCode;
+import com.aidex.system.domain.SysConfig;
 import com.aidex.system.domain.SysDictData;
 import com.aidex.system.domain.SysDictType;
 import com.aidex.system.mapper.SysDictDataMapper;
@@ -20,126 +24,55 @@ import java.util.List;
 
 /**
  * 字典 业务层处理
- * 
+ *
  * @author ruoyi
  */
 @Service
-public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, SysDictType> implements SysDictTypeService
-{
+public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, SysDictType> implements SysDictTypeService {
 
-    @Autowired
+    @Autowired(required = false)
     private SysDictDataMapper sysDictDataMapper;
-    /**
-     * 项目启动时，初始化字典到缓存
-     */
-    /**
-     * 启动的时候不加载缓存信息
-    @PostConstruct
-    public void init()
-    {
-        List<SysDictType> dictTypeList = dictTypeMapper.selectDictTypeAll();
-        for (SysDictType dictType : dictTypeList)
-        {
-            List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(dictType.getDictType());
-            DictUtils.setDictCache(dictType.getDictType(), dictDatas);
-        }
-    }
-    **/
-
-
-    /**
-     * 根据字典类型查询字典数据
-     * 
-     * @param dictType 字典类型
-     * @return 字典数据集合信息
-     */
-    @Override
-    public List<SysDictData> selectDictDataByType(String dictType)
-    {
-        return DictUtils.getDictList(dictType);
-    }
-
-    /**
-     * 根据字典类型查询字典数据
-     *
-     * @param dictType 字典类型
-     * @return 字典数据集合信息
-     */
-    @Override
-    public List<SysDictData> selectAllDictDataByType(String dictType)
-    {
-        return DictUtils.getAllDictList(dictType);
-    }
-
-
-    /**
-     * 根据字典类型查询信息
-     * 
-     * @param dictType 字典类型
-     * @return 字典类型
-     */
-    @Override
-    public SysDictType selectDictTypeByType(String dictType)
-    {
-        SysDictType SysDictType = new SysDictType();
-        SysDictType.setDictType(dictType);
-        List<SysDictType> list = mapper.findList(SysDictType);
-        if(!CollectionUtils.isEmpty(list)){
-            return list.get(0);
-        }
-        return null;
-    }
 
     /**
      * 批量删除字典类型信息
-     * 
+     *
      * @param dictIds 需要删除的字典ID
      * @return 结果
      */
     @Override
     @Transactional(readOnly = false)
-    public int deleteDictTypeByIds(String[] dictIds)
-    {
-        for (String dictId : dictIds)
-        {
+    public void deleteDictTypeByIds(String[] dictIds) {
+        for (String dictId : dictIds) {
             SysDictType dictType = get(dictId);
             SysDictData sysDictData = new SysDictData();
             sysDictData.setDictType(dictType.getDictType());
             List<SysDictData> dictDataList = sysDictDataMapper.findList(sysDictData);
-            if (dictDataList.size() > 0)
-            {
-                throw new CustomException(String.format("%1$s已分配,不能删除", dictType.getDictName()));
+            if (dictDataList.size() > 0) {
+                throw new CustomException(String.format("%1$s存在字典信息,不能删除", dictType.getDictName()));
             }
         }
-        int count = mapper.deleteDictTypeByIds(dictIds,SysDictType.DEL_FLAG_DELETE);
-        if (count > 0)
-        {
-            DictUtils.clearDictCache();
-        }
-        return count;
+        mapper.deleteDictTypeByIds(dictIds, SysDictType.DEL_FLAG_DELETE);
     }
 
     /**
      * 清空缓存数据
      */
     @Override
-    public void clearCache()
-    {
+    public void refreshCache() {
         DictUtils.clearDictCache();
+        loadingDictCache();
     }
 
     /**
      * 新增保存字典类型信息
-     * 
+     *
      * @param dictType 字典类型信息
      * @return 结果
      */
     @Override
-    public boolean save(SysDictType dictType)
-    {
+    public boolean save(SysDictType dictType) {
         boolean result = super.save(dictType);
-        if (result)
-        {
+        if (result) {
             DictUtils.clearDictCache();
         }
         return result;
@@ -147,18 +80,30 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeMapper, S
 
     /**
      * 校验字典类型称是否唯一
-     * 
+     *
      * @param dict 字典类型
      * @return 结果
      */
     @Override
-    public void checkDictTypeUnique(SysDictType dict)
-    {
+    public void checkDictTypeUnique(SysDictType dict) {
         SysDictType sysDictTypeUnique = new SysDictType();
         sysDictTypeUnique.setNotEqualId(dict.getId());
         sysDictTypeUnique.setDictType(dict.getDictType());
         if (!CollectionUtils.isEmpty(mapper.findListWithUnique(sysDictTypeUnique))) {
             throw new BizException(SysErrorCode.B_SYSDICTTYPE_DictTypeAlreadyExist);
+        }
+    }
+
+    /**
+     * 加载参数缓存数据
+     */
+    @Override
+    public void loadingDictCache()
+    {
+        List<SysDictType> sysDictTypeList = findList(new SysDictType());
+        for (SysDictType sysDictType : sysDictTypeList)
+        {
+            DictUtils.setDictCache(sysDictType.getDictType());
         }
     }
 }

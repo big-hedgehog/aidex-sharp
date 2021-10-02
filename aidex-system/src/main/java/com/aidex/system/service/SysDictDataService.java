@@ -5,7 +5,7 @@ import com.aidex.system.domain.SysDictData;
 
 /**
  * 字典 业务层
- * 
+ *
  * @author ruoyi
  */
 public interface SysDictDataService extends BaseService<SysDictData>
@@ -13,7 +13,7 @@ public interface SysDictDataService extends BaseService<SysDictData>
 
     /**
      * 根据字典类型和字典键值查询字典数据信息
-     * 
+     *
      * @param dictType 字典类型
      * @param dictValue 字典键值
      * @return 字典标签
@@ -23,11 +23,11 @@ public interface SysDictDataService extends BaseService<SysDictData>
 
     /**
      * 批量删除字典数据信息
-     * 
-     * @param dictCodes 需要删除的字典数据ID
+     *
+     * @param dictDataIds 需要删除的字典数据ID
      * @return 结果
      */
-    public int deleteDictDataByIds(String[] ids);
+    public void deleteDictDataByIds(String[] dictDataIds);
 
     /**
      * 校验字典值是否唯一
@@ -39,6 +39,7 @@ public interface SysDictDataService extends BaseService<SysDictData>
 
     /**
      * 获取最大排序
+     * @param sysDictData
      * @return
      */
     public int findMaxSort(SysDictData sysDictData);

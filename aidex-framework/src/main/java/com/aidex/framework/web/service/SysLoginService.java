@@ -22,7 +22,6 @@ import org.springframework.stereotype.Component;
 import com.aidex.common.constant.Constants;
 import com.aidex.common.core.domain.model.LoginUser;
 import com.aidex.common.core.redis.RedisCache;
-import com.aidex.common.exception.CustomException;
 import com.aidex.common.exception.user.CaptchaException;
 import com.aidex.common.exception.user.CaptchaExpireException;
 import com.aidex.common.exception.user.UserPasswordNotMatchException;

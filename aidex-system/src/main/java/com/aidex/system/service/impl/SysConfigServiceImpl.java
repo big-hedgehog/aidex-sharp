@@ -50,11 +50,15 @@ public class SysConfigServiceImpl extends BaseServiceImpl<SysConfigMapper, SysCo
     @Override
     @Transactional(readOnly = false)
     public void deleteConfigByIds(String[] configIds) {
+        //先进行校验
         for (String configId : configIds) {
             SysConfig config = super.get(configId);
             if (StringUtils.equals(UserConstants.YES, config.getConfigType())) {
                 throw new CustomException(String.format("内置参数【%1$s】不能删除 ", config.getConfigKey()));
             }
+        }
+        for (String configId : configIds) {
+            SysConfig config = super.get(configId);
             remove(config);
             ConfigUtils.clearConfigCache(config.getConfigKey());
         }

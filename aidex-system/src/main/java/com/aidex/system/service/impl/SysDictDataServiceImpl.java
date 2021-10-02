@@ -1,11 +1,16 @@
 package com.aidex.system.service.impl;
 
+import com.aidex.common.constant.UserConstants;
 import com.aidex.common.core.domain.BaseEntity;
 import com.aidex.common.core.service.BaseServiceImpl;
 import com.aidex.common.exception.BizException;
+import com.aidex.common.exception.CustomException;
 import com.aidex.common.utils.NumberUtils;
+import com.aidex.common.utils.StringUtils;
+import com.aidex.framework.cache.ConfigUtils;
 import com.aidex.framework.cache.DictUtils;
 import com.aidex.system.common.SysErrorCode;
+import com.aidex.system.domain.SysConfig;
 import com.aidex.system.domain.SysDictData;
 import com.aidex.system.mapper.SysDictDataMapper;
 import com.aidex.system.service.SysDictDataService;
@@ -48,37 +53,30 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataMapper, S
     /**
      * 批量删除字典数据信息
      *
-     * @param ids 需要删除的字典数据ID
+     * @param dictDataIds 需要删除的字典数据ID
      * @return 结果
      */
     @Override
     @Transactional(readOnly = false)
-    public int deleteDictDataByIds(String[] ids) {
-        List<String> dictTypes = new ArrayList<String>();
-        for (int i = 0; i < ids.length; i++) {
-            SysDictData sysDictData = get(ids[i]);
-            dictTypes.add(sysDictData.getDictType());
+    public void deleteDictDataByIds(String[] dictDataIds) {
+        for (String dictDataId : dictDataIds) {
+            SysDictData sysDictData = get(dictDataId);
+            remove(sysDictData);
+            DictUtils.clearDictCache(sysDictData.getDictType());
         }
-        int row = mapper.deleteDictDataByIds(ids, BaseEntity.DEL_FLAG_DELETE);
-        if (row > 0) {
-            for (int j = 0; j < dictTypes.size(); j++) {
-                DictUtils.clearDictCache(dictTypes.get(j));
-            }
-        }
-        return row;
     }
 
     /**
      * 新增保存字典数据信息
      *
-     * @param dictData 字典数据信息
+     * @param sysDictData 字典数据信息
      * @return 结果
      */
     @Override
-    public boolean save(SysDictData dictData) {
-        boolean result = super.save(dictData);
+    public boolean save(SysDictData sysDictData) {
+        boolean result = super.save(sysDictData);
         if (result) {
-            DictUtils.clearDictCache(dictData.getDictType());
+            DictUtils.setDictCache(sysDictData.getDictType());
         }
         return result;
     }
@@ -95,7 +93,6 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataMapper, S
         sysDictDataUnique.setNotEqualId(sysDictData.getId());
         sysDictDataUnique.setDictValue(sysDictData.getDictValue());
         sysDictDataUnique.setDictType(sysDictData.getDictType());
-
         if (!CollectionUtils.isEmpty(mapper.findListWithUnique(sysDictDataUnique))) {
             throw new BizException(SysErrorCode.B_SYSDICDATA_DictValueAlreadyExist);
         }
@@ -104,6 +101,7 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataMapper, S
     /**
      * 获取最大排序
      *
+     * @param sysDictData
      * @return
      */
     @Override

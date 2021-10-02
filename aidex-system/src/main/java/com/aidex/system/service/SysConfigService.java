@@ -10,6 +10,9 @@ import com.aidex.system.domain.SysConfig;
  */
 public interface SysConfigService extends BaseService<SysConfig> {
 
+
+
+
     /**
      * 批量删除参数信息
      *

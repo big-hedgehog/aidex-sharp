@@ -33,6 +33,8 @@ public class SysDictType extends BaseEntity<SysDictType>
     @Size(min = 0, max = 100, message = "字典类型类型长度不能超过100个字符")
     private String dictType;
 
+    private String dictTypeEq;
+
     /** 状态（0正常 1停用） */
     @Excel(name = "状态", readConverterExp = "0=正常,1=停用")
     private String status;
@@ -40,7 +42,7 @@ public class SysDictType extends BaseEntity<SysDictType>
     
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
             .append("dictName", getDictName())
             .append("dictType", getDictType())

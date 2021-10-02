@@ -46,7 +46,7 @@ public class DictUtils implements CacheUtil {
 
     @Override
     public String getCacheValue(String key) {
-        return ((JSONArray)REDIS_CACHE.getCacheMapValue(CACHE_NAME, key)).toJSONString();
+        return ((JSONArray) REDIS_CACHE.getCacheMapValue(CACHE_NAME, key)).toJSONString();
     }
 
     @Override
@@ -88,11 +88,12 @@ public class DictUtils implements CacheUtil {
      * 清空字典缓存
      */
     public static void clearDictCache(String dictType) {
-        REDIS_CACHE.deleteCacheMapValue(CACHE_NAME, Constants.SYS_DICT_KEY+dictType);
+        REDIS_CACHE.deleteCacheMapValue(CACHE_NAME, getCacheKey(dictType));
     }
 
     /**
      * 设置cache key
+     *
      * @param configKey 参数键
      * @return 缓存键key
      */
@@ -102,6 +103,7 @@ public class DictUtils implements CacheUtil {
 
     /**
      * 根据字典类型和字典值获取字典标签
+     *
      * @param dictType  字典类型
      * @param dictValue 字典值
      * @return 字典标签
@@ -112,6 +114,7 @@ public class DictUtils implements CacheUtil {
 
     /**
      * 根据字典类型和字典值获取字典标签
+     *
      * @param dictType  字典类型
      * @param dictValue 字典值
      * @param separator 分隔符
@@ -143,6 +146,7 @@ public class DictUtils implements CacheUtil {
 
     /**
      * 根据字典类型和字典标签获取字典值
+     *
      * @param dictType  字典类型
      * @param dictLabel 字典标签
      * @return 字典值
@@ -153,6 +157,7 @@ public class DictUtils implements CacheUtil {
 
     /**
      * 根据字典类型和字典标签获取字典值
+     *
      * @param dictType  字典类型
      * @param dictLabel 字典标签
      * @param separator 分隔符
@@ -184,6 +189,7 @@ public class DictUtils implements CacheUtil {
 
     /**
      * 获取数据字典列表：仅包含有效的
+     *
      * @param dictType 字典编码
      * @return
      */
@@ -193,22 +199,41 @@ public class DictUtils implements CacheUtil {
 
     /**
      * 获取所有的数据字典：包含有效和无效的，用于主页面展示
+     *
      * @param dictType 字典编码
      * @return
      */
     public static List<SysDictData> getAllDictList(String dictType) {
         List<SysDictData> dictDatas = new ArrayList<SysDictData>();
-        JSONArray jsonArray = REDIS_CACHE.getCacheMapValue(CACHE_NAME,getCacheKey(dictType));
-        if (!CollectionUtils.isEmpty(jsonArray))
-        {
+        JSONArray jsonArray = REDIS_CACHE.getCacheMapValue(CACHE_NAME, getCacheKey(dictType));
+        if (!CollectionUtils.isEmpty(jsonArray)) {
             dictDatas = jsonArray.toJavaList(SysDictData.class);
             return dictDatas;
         } else {
             SysDictData sysDictData = new SysDictData();
             sysDictData.setDictType(dictType);
             dictDatas = sysDictDataService.findList(sysDictData);
-            REDIS_CACHE.setCacheMapValue(CACHE_NAME, getCacheKey(dictType), dictDatas);
+            setDictCache(dictType,dictDatas);
             return dictDatas;
         }
+    }
+
+    /**
+     * 设置缓存
+     * @param dictType
+     */
+    public static void setDictCache(String dictType) {
+        SysDictData sysDictDataQuery = new SysDictData();
+        sysDictDataQuery.setDictType(dictType);
+        setDictCache(dictType,sysDictDataService.findList(sysDictDataQuery));
+    }
+
+    /**
+     * 设置缓存
+     * @param dictType
+     * @param dictDatas
+     */
+    public static void setDictCache(String dictType, List<SysDictData> dictDatas) {
+        REDIS_CACHE.setCacheMapValue(CACHE_NAME, getCacheKey(dictType), dictDatas);
     }
 }

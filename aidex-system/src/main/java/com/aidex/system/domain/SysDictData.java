@@ -154,10 +154,10 @@ public class SysDictData extends BaseEntity<SysDictData>
     {
         this.status = status;
     }
-    
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("dictCode", getDictCode())
             .append("dictSort", getDictSort())
             .append("dictLabel", getDictLabel())

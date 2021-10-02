@@ -5,7 +5,6 @@ import com.aidex.common.core.domain.AjaxResult;
 import com.aidex.common.core.domain.entity.RegisterBody;
 import com.aidex.framework.cache.ConfigUtils;
 import com.aidex.framework.web.service.SysRegisterService;
-import com.aidex.system.service.SysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
