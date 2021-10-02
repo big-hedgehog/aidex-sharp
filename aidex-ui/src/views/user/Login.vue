@@ -13,7 +13,7 @@
           <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
         </a-input-password>
       </a-form-model-item>
-      <a-row :gutter="16">
+      <a-row :gutter="16" v-if="captchaOnOff">
         <a-col class="gutter-row" :span="16">
           <a-form-model-item prop="code">
             <a-input v-model="form.code" size="large" type="text" autocomplete="off" placeholder="验证码">
@@ -79,6 +79,8 @@ export default {
         code: undefined,
         uuid: ''
       },
+      // 验证码开关
+      captchaOnOff: true,
       rules: {
         username: [{ required: true, message: '请输入帐户名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
@@ -93,8 +95,11 @@ export default {
   methods: {
     getCode () {
       getCodeImg().then(res => {
-        this.codeUrl = 'data:image/gif;base64,' + res.img
-        this.form.uuid = res.uuid
+        this.captchaOnOff = res.captchaOnOff === undefined ? true : res.captchaOnOff
+        if (this.captchaOnOff) {
+          this.codeUrl = 'data:image/gif;base64,' + res.img
+          this.form.uuid = res.uuid
+        }
       })
     },
     applyLicense () {
@@ -117,6 +122,9 @@ export default {
           setTimeout(() => {
             this.logining = false
           }, 600)
+          if (this.captchaOnOff) {
+            this.getCode()
+          }
         }
       })
     },
