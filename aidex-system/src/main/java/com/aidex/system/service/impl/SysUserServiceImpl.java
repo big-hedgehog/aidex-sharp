@@ -286,7 +286,20 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     @Transactional(readOnly = false)
     public boolean updateUserAvatar(String userName, String avatar)
     {
-        return mapper.updateUserAvatar(userName, avatar) > 0 ? true : false;
+        return mapper.updateUserAvatar(userName, avatar) > 0;
+    }
+
+    /**
+     * 记录登录信息
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    @Override
+    @Transactional(readOnly = false)
+    public boolean updateUserLoginInfo(SysUser user)
+    {
+        return mapper.updateUserLoginInfo(user) > 0;
     }
 
     /**

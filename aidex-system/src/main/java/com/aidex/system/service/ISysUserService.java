@@ -123,6 +123,15 @@ public interface ISysUserService extends BaseService<SysUser>
     public boolean updateUserAvatar(String userName, String avatar);
 
     /**
+     * 记录登录信息
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    @Transactional(readOnly = false)
+    public boolean updateUserLoginInfo(SysUser user);
+
+    /**
      * 重置用户密码
      * 
      * @param user 用户信息

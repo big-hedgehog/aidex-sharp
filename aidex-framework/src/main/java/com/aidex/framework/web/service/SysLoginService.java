@@ -2,10 +2,15 @@ package com.aidex.framework.web.service;
 
 import javax.annotation.Resource;
 
+import com.aidex.common.core.domain.entity.SysUser;
 import com.aidex.common.core.domain.entity.SysUserMenu;
 import com.aidex.common.exception.ExpireException;
+import com.aidex.common.utils.DateUtils;
+import com.aidex.common.utils.ServletUtils;
 import com.aidex.common.utils.StringUtils;
+import com.aidex.common.utils.ip.IpUtils;
 import com.aidex.framework.cache.ConfigUtils;
+import com.aidex.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Value;
 import com.aidex.framework.manager.AsyncManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +48,9 @@ public class SysLoginService
 
     @Autowired
     private RedisCache redisCache;
+
+    @Autowired
+    private ISysUserService userService;
 
     // 是否允许账户多终端同时登录（true允许 false不允许）
     @Value("${token.soloLogin}")
@@ -99,6 +107,7 @@ public class SysLoginService
         // 生成token
         String token = tokenService.createToken(loginUser);
         AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
+        recordLoginInfo(loginUser.getUser().getId());
         return token;
     }
 
@@ -125,6 +134,20 @@ public class SysLoginService
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error")));
             throw new CaptchaException();
         }
+    }
+
+    /**
+     * 记录登录信息
+     *
+     * @param userId 用户ID
+     */
+    public void recordLoginInfo(String userId)
+    {
+        SysUser sysUser = new SysUser();
+        sysUser.setId(userId);
+        sysUser.setLoginIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
+        sysUser.setLoginDate(DateUtils.getNowDate());
+        userService.updateUserLoginInfo(sysUser);
     }
 
 }

@@ -40,6 +40,14 @@ public interface SysUserMapper extends BaseMapper<SysUser>
     public int updateUserAvatar(@Param("userName") String userName, @Param("avatar") String avatar);
 
     /**
+     * 记录登录信息
+     *
+     * @param sysUser 用户
+     * @return 结果
+     */
+    public int updateUserLoginInfo(SysUser sysUser);
+
+    /**
      * 重置用户密码
      * 
      * @param userName 用户名
