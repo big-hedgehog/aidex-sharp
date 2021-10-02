@@ -1,5 +1,8 @@
 package com.aidex.framework.config;
 
+import com.aidex.common.config.AiDexConfig;
+import com.aidex.common.constant.Constants;
+import com.aidex.framework.interceptor.RepeatSubmitInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,19 +12,16 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import com.aidex.common.config.AiDexConfig;
-import com.aidex.common.constant.Constants;
-import com.aidex.framework.interceptor.RepeatSubmitInterceptor;
 
 /**
  * 通用配置
- * 
+ *
  * @author ruoyi
  */
 @Configuration
 public class ResourcesConfig implements WebMvcConfigurer
 {
-    @Autowired
+    @Autowired(required = false)
     private RepeatSubmitInterceptor repeatSubmitInterceptor;
 
     @Override
@@ -31,8 +31,7 @@ public class ResourcesConfig implements WebMvcConfigurer
         registry.addResourceHandler(Constants.RESOURCE_PREFIX + "/**").addResourceLocations("file:" + AiDexConfig.getProfile() + "/");
 
         /** swagger配置 */
-        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/swagger-ui/**").addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
     }
 
     /**
