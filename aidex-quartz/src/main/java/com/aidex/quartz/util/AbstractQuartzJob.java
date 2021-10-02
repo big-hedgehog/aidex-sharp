@@ -38,10 +38,10 @@ public abstract class AbstractQuartzJob implements Job
         try
         {
             before(context, sysJob);
-           // if (sysJob != null)
-           // {
+            if (sysJob != null)
+            {
                 doExecute(context, sysJob);
-           // }
+            }
             after(context, sysJob, null);
         }
         catch (Exception e)
@@ -80,11 +80,7 @@ public abstract class AbstractQuartzJob implements Job
         sysJobLog.setStartTime(startTime);
         sysJobLog.setStopTime(new Date());
         long runMs = sysJobLog.getStopTime().getTime() - sysJobLog.getStartTime().getTime();
-        String customMessage = "";
-        if(StringUtils.isNotBlank(sysJob.getCustomMessage())){
-            customMessage = ",定时任务自定义返回信息：" + sysJob.getCustomMessage();
-        }
-        sysJobLog.setJobMessage(sysJobLog.getJobName() + " 总共耗时：" + runMs + "毫秒" + customMessage);
+        sysJobLog.setJobMessage(sysJobLog.getJobName() + " 总共耗时：" + runMs + "毫秒");
         if (e != null)
         {
             sysJobLog.setStatus(Constants.FAIL);

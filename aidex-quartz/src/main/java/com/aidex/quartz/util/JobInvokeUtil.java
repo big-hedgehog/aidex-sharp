@@ -1,12 +1,13 @@
 package com.aidex.quartz.util;
 
+import com.aidex.common.utils.StringUtils;
+import com.aidex.common.utils.spring.SpringUtils;
+import com.aidex.quartz.domain.SysJob;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
-import com.aidex.common.utils.StringUtils;
-import com.aidex.common.utils.spring.SpringUtils;
-import com.aidex.quartz.domain.SysJob;
 
 /**
  * 任务执行工具
@@ -26,18 +27,17 @@ public class JobInvokeUtil
         String beanName = getBeanName(invokeTarget);
         String methodName = getMethodName(invokeTarget);
         List<Object[]> methodParams = getMethodParams(invokeTarget);
-        String message = "";//定时任务方法可以返回自定义信息用户记录到执行日志
+
         if (!isValidClassName(beanName))
         {
             Object bean = SpringUtils.getBean(beanName);
-            message = invokeMethod(bean, methodName, methodParams);
+            invokeMethod(bean, methodName, methodParams);
         }
         else
         {
             Object bean = Class.forName(beanName).newInstance();
-            message = invokeMethod(bean, methodName, methodParams);
+            invokeMethod(bean, methodName, methodParams);
         }
-        sysJob.setCustomMessage(message);
     }
 
     /**
@@ -47,28 +47,26 @@ public class JobInvokeUtil
      * @param methodName 方法名称
      * @param methodParams 方法参数
      */
-    private static String invokeMethod(Object bean, String methodName, List<Object[]> methodParams)
+    private static void invokeMethod(Object bean, String methodName, List<Object[]> methodParams)
             throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
             InvocationTargetException
     {
-        String message = "";//定时任务方法可以返回自定义信息用户记录到执行日志
         if (StringUtils.isNotNull(methodParams) && methodParams.size() > 0)
         {
             Method method = bean.getClass().getDeclaredMethod(methodName, getMethodParamsType(methodParams));
-            message =(String)method.invoke(bean, getMethodParamsValue(methodParams));
-            System.out.println("返回参数"+message);
+            method.invoke(bean, getMethodParamsValue(methodParams));
         }
         else
         {
             Method method = bean.getClass().getDeclaredMethod(methodName);
-            message =(String)method.invoke(bean);
+            method.invoke(bean);
         }
-        return message;
     }
 
     /**
      * 校验是否为为class包名
-     * 
+     *
+     * @param invokeTarget 名称
      * @return true是 false否
      */
     public static boolean isValidClassName(String invokeTarget)
@@ -78,7 +76,7 @@ public class JobInvokeUtil
 
     /**
      * 获取bean名称
-     * 
+     *
      * @param invokeTarget 目标字符串
      * @return bean名称
      */
@@ -90,7 +88,7 @@ public class JobInvokeUtil
 
     /**
      * 获取bean方法
-     * 
+     *
      * @param invokeTarget 目标字符串
      * @return method方法
      */
@@ -102,7 +100,7 @@ public class JobInvokeUtil
 
     /**
      * 获取method方法参数相关列表
-     * 
+     *
      * @param invokeTarget 目标字符串
      * @return method方法相关参数列表
      */
@@ -149,7 +147,7 @@ public class JobInvokeUtil
 
     /**
      * 获取参数类型
-     * 
+     *
      * @param methodParams 参数相关列表
      * @return 参数类型列表
      */
@@ -167,7 +165,7 @@ public class JobInvokeUtil
 
     /**
      * 获取参数值
-     * 
+     *
      * @param methodParams 参数相关列表
      * @return 参数值列表
      */
