@@ -201,11 +201,20 @@ public class LogAspect {
      */
     private String argsArrayToString(Object[] paramsArray) {
         String params = "";
-        if (paramsArray != null && paramsArray.length > 0) {
-            for (int i = 0; i < paramsArray.length; i++) {
-                if (!isFilterObject(paramsArray[i])) {
-                    Object jsonObj = JSON.toJSON(paramsArray[i]);
-                    params += jsonObj.toString() + " ";
+        if (paramsArray != null && paramsArray.length > 0)
+        {
+            for (Object o : paramsArray)
+            {
+                if (StringUtils.isNotNull(o) && !isFilterObject(o))
+                {
+                    try
+                    {
+                        Object jsonObj = JSON.toJSON(o);
+                        params += jsonObj.toString() + " ";
+                    }
+                    catch (Exception e)
+                    {
+                    }
                 }
             }
         }
