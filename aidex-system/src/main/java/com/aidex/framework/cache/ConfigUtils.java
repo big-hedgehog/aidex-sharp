@@ -7,8 +7,10 @@ import com.aidex.common.utils.spring.SpringUtils;
 import com.aidex.system.domain.SysConfig;
 import com.aidex.system.service.SysConfigService;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 字典工具类
@@ -82,7 +84,7 @@ public class ConfigUtils implements CacheUtil {
      * 清空字典缓存
      */
     public static void clearConfigCache(String configKey) {
-        REDIS_CACHE.deleteCacheMapValue(CACHE_NAME, configKey);
+        REDIS_CACHE.deleteCacheMapValue(CACHE_NAME, getCacheKey(configKey));
     }
 
     /**
@@ -97,37 +99,62 @@ public class ConfigUtils implements CacheUtil {
 
     /**
      * 根据Key值获取配置信息
+     *
      * @param configKey
      * @return
      */
     public static SysConfig getConfigByKey(String configKey) {
-        return  REDIS_CACHE.getCacheMapValue(CACHE_NAME, getCacheKey(configKey));
+        SysConfig sysConfig = REDIS_CACHE.getCacheMapValue(CACHE_NAME, getCacheKey(configKey));
+        if (null == sysConfig) {
+            SysConfig sysConfigQuery = new SysConfig();
+            sysConfigQuery.setConfigKey(configKey);
+            List<SysConfig> configDatas = sysConfigService.findList(sysConfigQuery);
+            if (CollectionUtils.isEmpty(configDatas)) {
+                return null;
+            } else {
+                sysConfig = configDatas.get(0);
+                REDIS_CACHE.setCacheMapValue(CACHE_NAME, getCacheKey(configKey), sysConfig);
+            }
+        }
+        return sysConfig;
     }
 
     /**
      * 根据Key值获取配置值
+     *
+     * @param configKey
+     * @return
+     */
+    public static String getConfigValueByKey(String configKey,String defaultValue) {
+        SysConfig sysConfig = getConfigByKey(configKey);
+        if (null == sysConfig) {
+            return defaultValue;
+        }
+        return sysConfig.getConfigValue();
+    }
+
+    /**
+     * 根据Key值获取配置值
+     *
      * @param configKey
      * @return
      */
     public static String getConfigValueByKey(String configKey) {
-        SysConfig sysConfig = REDIS_CACHE.getCacheMapValue(CACHE_NAME, getCacheKey(configKey));
-        if(null == sysConfig){
-            return "";
-        }
-        return  sysConfig.getConfigValue();
+        return getConfigValueByKey(configKey,"");
     }
 
     /**
      * 根据Key值获取配置的boolean值
+     *
      * @param configKey
      * @return
      */
-    public static boolean getConfigBooleanValueByKey(String configKey,Boolean defaultValue) {
-        SysConfig sysConfig = REDIS_CACHE.getCacheMapValue(CACHE_NAME, getCacheKey(configKey));
-        if(null == sysConfig){
+    public static boolean getConfigBooleanValueByKey(String configKey, Boolean defaultValue) {
+        SysConfig sysConfig = getConfigByKey(configKey);
+        if (null == sysConfig) {
             return defaultValue;
         }
-        return Convert.toBool(sysConfig.getConfigValue(),defaultValue);
+        return Convert.toBool(sysConfig.getConfigValue(), defaultValue);
     }
 
     public static void setConfigCache(SysConfig sysConfig) {

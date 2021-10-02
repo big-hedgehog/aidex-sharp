@@ -93,7 +93,7 @@
             <a-icon type="download" />导出
           </a-button>
           <a-button @click="handleClearCache" v-hasPermi="['system:config:remove']">
-            <a-icon type="redo" />清除缓存
+            <a-icon type="redo" />刷新缓存
           </a-button>
         </div>
         <span slot="configType" slot-scope="{text, record}">
@@ -113,7 +113,7 @@
   </div>
 </template>
 <script>
-import { listConfig, delConfig, exportConfig, clearCache } from '@/api/system/config'
+import { listConfig, delConfig, exportConfig, refreshCache } from '@/api/system/config'
 import ConfigEditForm from './modules/ConfigEditForm'
 import ConfigAddForm from './modules/ConfigAddForm'
 import AdvanceTable from '@/components/pt/table/AdvanceTable'
@@ -330,9 +330,9 @@ export default {
     },
     /** 清理缓存按钮操作 */
     handleClearCache () {
-      clearCache().then(response => {
+      refreshCache().then(response => {
         this.$message.success(
-          '清理成功',
+          '刷新成功',
           3
         )
       })

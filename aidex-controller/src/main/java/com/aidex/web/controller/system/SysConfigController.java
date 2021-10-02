@@ -6,6 +6,7 @@ import com.aidex.common.core.domain.R;
 import com.aidex.common.core.page.PageDomain;
 import com.aidex.common.enums.BusinessType;
 import com.aidex.common.utils.poi.ExcelUtil;
+import com.aidex.framework.cache.ConfigUtils;
 import com.aidex.system.domain.SysConfig;
 import com.aidex.system.service.SysConfigService;
 import com.github.pagehelper.PageInfo;
@@ -22,13 +23,13 @@ import java.util.Map;
 
 /**
  * 参数配置 信息操作处理
- * 
+ *
  * @author ruoyi
  */
 @RestController
 @RequestMapping("/system/config")
-public class SysConfigController extends BaseController
-{
+public class SysConfigController extends BaseController {
+
     @Autowired
     private SysConfigService configService;
 
@@ -65,8 +66,7 @@ public class SysConfigController extends BaseController
     @Log(title = "参数管理", businessType = BusinessType.EXPORT)
     @PreAuthorize("@ss.hasPermi('system:config:export')")
     @GetMapping("/export")
-    public R export(SysConfig config)
-    {
+    public R export(SysConfig config) {
         List<SysConfig> list = configService.findList(config);
         ExcelUtil<SysConfig> util = new ExcelUtil<SysConfig>(SysConfig.class);
         return util.exportExcel(list, "参数数据");
@@ -76,9 +76,8 @@ public class SysConfigController extends BaseController
      * 根据参数键名查询参数值
      */
     @GetMapping(value = "/configKey/{configKey}")
-    public R getConfigKey(@PathVariable String configKey)
-    {
-        return R.data(configService.selectConfigByKey(configKey));
+    public R getConfigKey(@PathVariable String configKey) {
+        return R.data(ConfigUtils.getConfigValueByKey(configKey));
     }
 
 
@@ -92,19 +91,19 @@ public class SysConfigController extends BaseController
     @Log(title = "参数管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public R remove(@PathVariable String[] ids) {
-        return R.status(configService.deleteConfigByIds(ids));
+        configService.deleteConfigByIds(ids);
+        return R.success();
     }
 
 
     /**
-     * 清空缓存
+     * 刷新缓存
      */
     @PreAuthorize("@ss.hasPermi('system:config:remove')")
     @Log(title = "参数管理", businessType = BusinessType.CLEAN)
-    @DeleteMapping("/clearCache")
-    public R clearCache()
-    {
-        configService.clearCache();
+    @DeleteMapping("/refreshCache")
+    public R refreshCache() {
+        configService.refreshCache();
         return R.status(true);
     }
 
@@ -115,12 +114,12 @@ public class SysConfigController extends BaseController
     @Log(title = "字典类型", businessType = BusinessType.CHECK)
     @GetMapping("/checkConfigKeyUnique")
     public R checkDictDataValueUnique(SysConfig sysConfig) {
-        Map<String,String> checkMap = new HashMap<String,String>(1);
-        try{
+        Map<String, String> checkMap = new HashMap<String, String>(1);
+        try {
             configService.checkConfigKeyUnique(sysConfig);
-            checkMap.put("code","1");
-        }catch (Exception e){
-            checkMap.put("code","2");
+            checkMap.put("code", "1");
+        } catch (Exception e) {
+            checkMap.put("code", "2");
         }
         return R.data(checkMap);
     }

@@ -1,8 +1,5 @@
 package com.aidex.system.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.aidex.common.annotation.DataScope;
 import com.aidex.common.core.domain.BaseEntity;
 import com.aidex.common.core.domain.entity.SysRole;
@@ -14,6 +11,7 @@ import com.aidex.common.exception.CustomException;
 import com.aidex.common.utils.PinYin4JCn;
 import com.aidex.common.utils.SecurityUtils;
 import com.aidex.common.utils.StringUtils;
+import com.aidex.framework.cache.ConfigUtils;
 import com.aidex.system.common.SysErrorCode;
 import com.aidex.system.domain.SysPost;
 import com.aidex.system.domain.SysUserPost;
@@ -21,6 +19,9 @@ import com.aidex.system.domain.SysUserRole;
 import com.aidex.system.mapper.*;
 import com.aidex.system.service.ISysUserService;
 import com.aidex.system.service.SysConfigService;
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -208,7 +209,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         checkPhoneUnique(user);
         checkEmailUnique(user);
         if(StringUtils.isBlank(user.getPassword())){
-            String password = configService.selectConfigByKey("sys.user.initPassword");
+            String password = ConfigUtils.getConfigValueByKey("sys.user.initPassword","123456");
             user.setPassword(password);
         }
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
@@ -276,20 +277,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     }
 
     /**
-     * 修改用户头像
-     * 
-     * @param userName 用户名
-     * @param avatar 头像地址
-     * @return 结果
-     */
-    @Override
-    @Transactional(readOnly = false)
-    public boolean updateUserAvatar(String userName, String avatar)
-    {
-        return mapper.updateUserAvatar(userName, avatar) > 0;
-    }
-
-    /**
      * 记录登录信息
      *
      * @param user 用户信息
@@ -300,6 +287,20 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     public boolean updateUserLoginInfo(SysUser user)
     {
         return mapper.updateUserLoginInfo(user) > 0;
+    }
+
+    /**
+     * 修改用户头像
+     * 
+     * @param userName 用户名
+     * @param avatar 头像地址
+     * @return 结果
+     */
+    @Override
+    @Transactional(readOnly = false)
+    public boolean updateUserAvatar(String userName, String avatar)
+    {
+        return mapper.updateUserAvatar(userName, avatar) > 0 ? true : false;
     }
 
     /**
@@ -443,7 +444,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         int failureNum = 0;
         StringBuilder successMsg = new StringBuilder();
         StringBuilder failureMsg = new StringBuilder();
-        String password = configService.selectConfigByKey("sys.user.initPassword");
+        String password = ConfigUtils.getConfigValueByKey("sys.user.initPassword","123456");
         for (SysUser user : userList)
         {
             try
