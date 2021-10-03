@@ -7,7 +7,6 @@ import com.aidex.common.core.domain.model.LoginBody;
  *
  * @author ruoyi
  */
-public class RegisterBody extends LoginBody
-{
+public class RegisterBody extends LoginBody {
 
 }

@@ -5,6 +5,7 @@ import com.aidex.common.constant.UserConstants;
 import com.aidex.common.core.domain.entity.RegisterBody;
 import com.aidex.common.core.domain.entity.SysUser;
 import com.aidex.common.core.redis.RedisCache;
+import com.aidex.common.core.text.Convert;
 import com.aidex.common.exception.user.CaptchaException;
 import com.aidex.common.exception.user.CaptchaExpireException;
 import com.aidex.common.utils.MessageUtils;
@@ -25,6 +26,7 @@ import org.springframework.util.StringUtils;
  */
 @Component
 public class SysRegisterService {
+
     @Autowired
     private ISysUserService userService;
 
@@ -36,13 +38,14 @@ public class SysRegisterService {
 
     /**
      * 注册用户
+     *
      * @param registerBody
      * @return
      */
     public String register(RegisterBody registerBody) {
         String msg = "", username = registerBody.getUsername(), password = registerBody.getPassword();
         // 验证码开关
-        if (ConfigUtils.getConfigBooleanValueByKey("sys.account.captchaOnOff",Boolean.TRUE)) {
+        if (ConfigUtils.getConfigBooleanValueByKey("sys.account.captchaOnOff", Boolean.TRUE)) {
             validateCaptcha(username, registerBody.getCode(), registerBody.getUuid());
         }
         if (StringUtils.isEmpty(username)) {
@@ -66,7 +69,7 @@ public class SysRegisterService {
                 msg = "保存用户'" + username + "'失败，注册账号已存在";
                 e.printStackTrace();
             }
-            if(!StringUtils.hasLength(msg)){
+            if (!StringUtils.hasLength(msg)) {
                 SysUser sysUser = new SysUser();
                 sysUser.setUserName(username);
                 sysUser.setNickName(username);

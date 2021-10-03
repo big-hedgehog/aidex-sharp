@@ -1,6 +1,9 @@
 package com.aidex.common.utils;
 
+import com.aidex.common.constant.HttpStatus;
 import com.aidex.common.core.domain.model.LoginUser;
+import com.aidex.common.exception.SysException;
+import com.aidex.common.utils.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,54 +14,65 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * @author ruoyi
  */
 public class SecurityUtils {
-    /**
-     * 获取用户账户
-     **/
-    public static String getUsername() {
-        LoginUser loginUser =  getLoginUser();
-        if(null == loginUser){
-            return "";
-        }
-        return loginUser.getUsername();
-    }
 
     /**
      * 获取用户
      **/
     public static LoginUser getLoginUser() {
-        if(null != getAuthentication()){
-            Object principal = getAuthentication().getPrincipal();
-            if (principal != null) {
-                LoginUser user = (LoginUser) principal;
-                if (user != null) {
-                    return user;
+        try {
+            if (null != getAuthentication()) {
+                Object principal = getAuthentication().getPrincipal();
+                if (principal instanceof String && principal.toString().equals("anonymousUser")) {
+                    //匿名用户
+                    return new LoginUser();
                 }
-                return new LoginUser();
+                if (principal != null) {
+                    LoginUser user = (LoginUser) principal;
+                    if (user != null) {
+                        return user;
+                    }
+                    return new LoginUser();
+                }
             }
+            return new LoginUser();
+        } catch (Exception e) {
+            throw new SysException(HttpStatus.UNAUTHORIZED, "获取用户信息异常");
         }
-        return new LoginUser();
     }
 
     /**
-     * 获取用户ID
+     * 用户ID
      **/
-    public static String getLoginUserId() {
-        return getLoginUser().getUser().getId() + "";
+    public static String getUserId() {
+        try {
+            return getLoginUser().getUser().getId();
+        } catch (Exception e) {
+            throw new SysException(HttpStatus.UNAUTHORIZED, "获取用户ID异常");
+        }
     }
 
     /**
      * 获取部门ID
      **/
-    public static String getLoginDeptId() {
-        return getLoginUser().getUser().getDeptId() + "";
+    public static String getDeptId() {
+        try {
+            return getLoginUser().getUser().getDeptId();
+        } catch (Exception e) {
+            throw new SysException(HttpStatus.UNAUTHORIZED, "获取部门ID异常");
+        }
     }
 
     /**
-     * 获取部门姓名
+     * 获取用户账户
      **/
-    public static String getLoginDeptName() {
-        return getLoginUser().getUser().getSysDept().getDeptName();
+    public static String getUsername() {
+        try {
+            return getLoginUser().getUsername();
+        } catch (Exception e) {
+            throw new SysException(HttpStatus.UNAUTHORIZED, "获取用户账户异常");
+        }
     }
+
 
     /**
      * 获取登录IP地址

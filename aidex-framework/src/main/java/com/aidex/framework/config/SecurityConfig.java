@@ -1,8 +1,10 @@
 package com.aidex.framework.config;
 
 import com.aidex.common.utils.spring.SpringUtils;
+import com.aidex.framework.security.filter.JwtAuthenticationTokenFilter;
+import com.aidex.framework.security.handle.AuthenticationEntryPointImpl;
+import com.aidex.framework.security.handle.LogoutSuccessHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -17,9 +19,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.filter.CorsFilter;
-import com.aidex.framework.security.filter.JwtAuthenticationTokenFilter;
-import com.aidex.framework.security.handle.AuthenticationEntryPointImpl;
-import com.aidex.framework.security.handle.LogoutSuccessHandlerImpl;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -114,8 +113,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // 过滤请求
                 .authorizeRequests()
-                // 对于登录login 验证码captchaImage 允许匿名访问
-                .antMatchers("/login", "/captchaImage", "/sendSms").anonymous()
+                // 对于登录login 注册register 验证码captchaImage 发送短信 允许匿名访问
+                .antMatchers("/login", "/register", "/captchaImage", "/sendSms").anonymous()
                 .antMatchers(
                         HttpMethod.GET,
                         "/",

@@ -1,7 +1,7 @@
 package com.aidex.web.controller.system;
 
 import com.aidex.common.core.controller.BaseController;
-import com.aidex.common.core.domain.AjaxResult;
+import com.aidex.common.core.domain.R;
 import com.aidex.common.core.domain.entity.RegisterBody;
 import com.aidex.framework.cache.ConfigUtils;
 import com.aidex.framework.web.service.SysRegisterService;
@@ -18,19 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ruoyi
  */
 @RestController
-public class SysRegisterController extends BaseController
-{
+public class SysRegisterController extends BaseController {
+
     @Autowired
     private SysRegisterService registerService;
 
     @PostMapping("/register")
-    public AjaxResult register(@RequestBody RegisterBody user)
-    {
-        if (!ConfigUtils.getConfigBooleanValueByKey("sys.account.captchaOnOff",Boolean.FALSE))
-        {
-            return error("当前系统没有开启注册功能！");
+    public R register(@RequestBody RegisterBody user) {
+        if (!ConfigUtils.getConfigBooleanValueByKey("sys.account.registerUser", Boolean.FALSE)) {
+            return R.fail("当前系统没有开启注册功能！");
         }
         String msg = registerService.register(user);
-        return StringUtils.isEmpty(msg) ? success() : error(msg);
+        return StringUtils.isEmpty(msg) ? R.success() : R.fail(msg);
     }
 }

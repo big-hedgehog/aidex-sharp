@@ -19,4 +19,8 @@ public class SysException extends BaseException {
         super(errCode, errMessage);
     }
 
+    public SysException(int errCode, String errMessage) {
+        super(String.valueOf(errCode), errMessage);
+    }
+
 }
