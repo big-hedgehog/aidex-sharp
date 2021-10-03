@@ -2,7 +2,7 @@ package com.aidex.common.constant;
 
 /**
  * 通用常量信息
- * 
+ *
  * @author ruoyi
  */
 public class Constants
@@ -66,7 +66,7 @@ public class Constants
      * 登录用户 redis key
      */
     public static final String LOGIN_TOKEN_KEY = "login_tokens:";
-    
+
     /**
      * 防重提交 redis key
      */
@@ -156,6 +156,17 @@ public class Constants
      * 角色管理 cache key
      */
     public static final String SYS_ROLE_KEY = "sys_role:";
+
+    /**
+     * RMI 远程方法调用
+     */
+    public static final String LOOKUP_RMI = "rmi://";
+
+
+    /**
+     * LDAP 远程方法调用
+     */
+    public static final String LOOKUP_LDAP = "ldap://";
 
     /**
      * 资源映射路径 前缀

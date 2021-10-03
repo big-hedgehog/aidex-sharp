@@ -1,12 +1,15 @@
 package com.aidex.quartz.controller;
 
 import com.aidex.common.annotation.Log;
+import com.aidex.common.constant.Constants;
 import com.aidex.common.core.controller.BaseController;
 import com.aidex.common.core.domain.AjaxResult;
+import com.aidex.common.core.domain.R;
 import com.aidex.common.core.page.TableDataInfo;
 import com.aidex.common.enums.BusinessType;
 import com.aidex.common.exception.job.TaskException;
-import com.aidex.common.utils.SecurityUtils;
+import com.aidex.common.utils.StringUtils;
+import com.aidex.common.utils.poi.ExcelUtil;
 import com.aidex.quartz.domain.SysJob;
 import com.aidex.quartz.service.ISysJobService;
 import com.aidex.quartz.util.CronUtils;
@@ -19,7 +22,7 @@ import java.util.List;
 
 /**
  * 调度任务信息操作处理
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -47,12 +50,11 @@ public class SysJobController extends BaseController
     @PreAuthorize("@ss.hasPermi('monitor:job:export')")
     @Log(title = "定时任务", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
-    public AjaxResult export(SysJob sysJob)
+    public R export(SysJob sysJob)
     {
         List<SysJob> list = jobService.selectJobList(sysJob);
-        //ExcelUtil<SysJob> util = new ExcelUtil<SysJob>(SysJob.class);
-        //return util.exportExcel(null, "定时任务");
-        return null;
+        ExcelUtil<SysJob> util = new ExcelUtil<SysJob>(SysJob.class);
+        return util.exportExcel(list, "定时任务");
     }
 
     /**
@@ -71,14 +73,26 @@ public class SysJobController extends BaseController
     @PreAuthorize("@ss.hasPermi('monitor:job:add')")
     @Log(title = "定时任务", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody SysJob sysJob) throws SchedulerException, TaskException
+    public AjaxResult add(@RequestBody SysJob job) throws SchedulerException, TaskException
     {
-        if (!CronUtils.isValid(sysJob.getCronExpression()))
+        if (!CronUtils.isValid(job.getCronExpression()))
         {
-            return AjaxResult.error("cron表达式不正确");
+            return error("新增任务'" + job.getJobName() + "'失败，Cron表达式不正确");
         }
-        sysJob.setCreateBy(SecurityUtils.getUsername());
-        return toAjax(jobService.insertJob(sysJob));
+        else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_RMI))
+        {
+            return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi://'调用");
+        }
+        else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_LDAP))
+        {
+            return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap://'调用");
+        }
+        else if (StringUtils.containsAnyIgnoreCase(job.getInvokeTarget(), new String[] { Constants.HTTP, Constants.HTTPS }))
+        {
+            return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
+        }
+        job.setCreateBy(getUsername());
+        return toAjax(jobService.insertJob(job));
     }
 
     /**
@@ -87,15 +101,28 @@ public class SysJobController extends BaseController
     @PreAuthorize("@ss.hasPermi('monitor:job:edit')")
     @Log(title = "定时任务", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody SysJob sysJob) throws SchedulerException, TaskException
+    public AjaxResult edit(@RequestBody SysJob job) throws SchedulerException, TaskException
     {
-        if (!CronUtils.isValid(sysJob.getCronExpression()))
+        if (!CronUtils.isValid(job.getCronExpression()))
         {
-            return AjaxResult.error("cron表达式不正确");
+            return error("修改任务'" + job.getJobName() + "'失败，Cron表达式不正确");
         }
-        sysJob.setUpdateBy(SecurityUtils.getUsername());
-        return toAjax(jobService.updateJob(sysJob));
+        else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_RMI))
+        {
+            return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi://'调用");
+        }
+        else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_LDAP))
+        {
+            return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap://'调用");
+        }
+        else if (StringUtils.containsAnyIgnoreCase(job.getInvokeTarget(), new String[] { Constants.HTTP, Constants.HTTPS }))
+        {
+            return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
+        }
+        job.setUpdateBy(getUsername());
+        return toAjax(jobService.updateJob(job));
     }
+
     /**
      * 定时任务状态修改
      */
@@ -108,7 +135,6 @@ public class SysJobController extends BaseController
         newJob.setStatus(job.getStatus());
         return toAjax(jobService.changeStatus(newJob));
     }
-
 
     /**
      * 定时任务立即执行一次
