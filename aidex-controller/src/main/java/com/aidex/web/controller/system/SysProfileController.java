@@ -2,7 +2,6 @@ package com.aidex.web.controller.system;
 
 import com.aidex.common.annotation.Log;
 import com.aidex.common.config.AiDexConfig;
-import com.aidex.common.constant.UserConstants;
 import com.aidex.common.core.controller.BaseController;
 import com.aidex.common.core.domain.AjaxResult;
 import com.aidex.common.core.domain.R;
@@ -11,7 +10,6 @@ import com.aidex.common.core.domain.model.LoginUser;
 import com.aidex.common.enums.BusinessType;
 import com.aidex.common.utils.SecurityUtils;
 import com.aidex.common.utils.ServletUtils;
-import com.aidex.common.utils.StringUtils;
 import com.aidex.common.utils.file.FileUploadUtils;
 import com.aidex.framework.web.service.TokenService;
 import com.aidex.system.service.ISysUserService;
@@ -25,7 +23,7 @@ import java.util.Map;
 
 /**
  * 个人信息 业务处理
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -65,17 +63,21 @@ public class SysProfileController extends BaseController
         userService.checkPhoneUnique(user);
         //校验邮箱
         userService.checkEmailUnique(user);
+        //获取当前登录用户
+        LoginUser loginUser = getLoginUser();
+        SysUser sysUser = loginUser.getUser();
+        //更新用户信息
         SysUser oldUser = userService.get(user.getId());
         user.setVersion(oldUser.getVersion());
+        user.setPassword(null);
         if (userService.updateUserProfile(user))
         {
-            LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
             // 更新缓存用户信息
-            loginUser.getUser().setNickName(user.getNickName());
-            loginUser.getUser().setPhonenumber(user.getPhonenumber());
-            loginUser.getUser().setEmail(user.getEmail());
-            loginUser.getUser().setSex(user.getSex());
-            loginUser.getUser().setVersion(user.getVersion());
+            sysUser.setNickName(user.getNickName());
+            sysUser.setPhonenumber(user.getPhonenumber());
+            sysUser.setEmail(user.getEmail());
+            sysUser.setSex(user.getSex());
+            sysUser.setVersion(user.getVersion());
             tokenService.setLoginUser(loginUser);
             return R.success();
         }
