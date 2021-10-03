@@ -72,7 +72,7 @@ export function getSmsCaptcha (parameter) {
 }
 
 // 注册方法
-export function register(data) {
+export function register (data) {
   return request({
     url: '/register',
     headers: {
