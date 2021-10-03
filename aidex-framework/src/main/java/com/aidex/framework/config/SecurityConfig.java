@@ -1,6 +1,9 @@
 package com.aidex.framework.config;
 
+import com.aidex.common.utils.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,21 +20,27 @@ import org.springframework.web.filter.CorsFilter;
 import com.aidex.framework.security.filter.JwtAuthenticationTokenFilter;
 import com.aidex.framework.security.handle.AuthenticationEntryPointImpl;
 import com.aidex.framework.security.handle.LogoutSuccessHandlerImpl;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * spring security配置
- * 
+ *
  * @author ruoyi
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter
-{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 自定义用户认证逻辑
      */
-    @Autowired
+    @Autowired(required = false)
     private UserDetailsService userDetailsService;
-    
+
     /**
      * 认证失败处理类
      */
@@ -55,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
      */
     @Autowired
     private CorsFilter corsFilter;
-    
+
     /**
      * 解决 无法直接注入 AuthenticationManager
      *
@@ -64,8 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
      */
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception
-    {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
@@ -85,8 +93,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
      * authenticated       |   用户登录后可访问
      */
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception
-    {
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        ApplicationContext applicationContext = SpringUtils.getApplicationContext();
+        //查找匿名标记URL
+        Map<RequestMappingInfo, HandlerMethod> handlerMethods = applicationContext.getBean(RequestMappingHandlerMapping.class).getHandlerMethods();
+        Set<String> anonymousUrls = new HashSet<String>();
+        for (Map.Entry<RequestMappingInfo, HandlerMethod> infoEntry : handlerMethods.entrySet()) {
+            HandlerMethod handlerMethod = infoEntry.getValue();
+            AnonymousAccess anonymousAccess = handlerMethod.getMethodAnnotation(AnonymousAccess.class);
+            if (anonymousAccess != null) {
+                anonymousUrls.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
+            }
+        }
         httpSecurity
                 // CSRF禁用，因为不使用session
                 .csrf().disable()
@@ -97,14 +115,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 // 过滤请求
                 .authorizeRequests()
                 // 对于登录login 验证码captchaImage 允许匿名访问
-                .antMatchers("/login", "/captchaImage","/sendSms").anonymous()
+                .antMatchers("/login", "/captchaImage", "/sendSms").anonymous()
                 .antMatchers(
                         HttpMethod.GET,
+                        "/",
                         "/*.html",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js"
-                ).permitAll()
+                        "/**/*.js",
+                        "/profile/**").permitAll()
                 .antMatchers("/profile/**").anonymous()
                 .antMatchers("/common/download**").anonymous()
                 .antMatchers("/common/download/resource**").anonymous()
@@ -113,6 +132,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/webjars/**").anonymous()
                 .antMatchers("/*/api-docs").anonymous()
                 .antMatchers("/druid/**").anonymous()
+                .antMatchers(anonymousUrls.toArray(new String[0])).anonymous()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated()
                 .and()
@@ -125,13 +145,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
     }
 
-    
+
     /**
      * 强散列哈希加密实现
      */
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder()
-    {
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -139,8 +158,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
      * 身份认证接口
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception
-    {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 }
