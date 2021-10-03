@@ -3,6 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aidex.system.mapper.SysOperLogMapper">
+
 	<sql id="sysOperLogColumns">
         a.id as "id",
         a.title as "title",
@@ -25,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         a.error_msg as "errorMsg",
         a.oper_time as "operTime"
 	</sql>
+
 	<sql id="sysOperLogJoins">
 
 	</sql>

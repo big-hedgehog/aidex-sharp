@@ -990,7 +990,7 @@ CREATE TABLE `sys_oper_log` (
   `oper_id` bigint(20) DEFAULT NULL COMMENT '任务ID',
   `del_flag` char(1) DEFAULT '0' COMMENT '删除标志（0代表存在 1代表删除）',
   `form_id` varchar(64) DEFAULT NULL,
-  `take_up_time` varchar(10) DEFAULT NULL,
+  `take_up_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_formId` (`form_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作日志记录';
