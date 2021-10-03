@@ -27,8 +27,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * @author ruoyi
  */
 @Component
-public class TokenService
-{
+public class TokenService {
     // 令牌自定义标识
     @Value("${token.header}")
     private String header;
@@ -53,23 +52,26 @@ public class TokenService
 
     @Autowired
     private RedisCache redisCache;
+
     /**
      * 获取用户身份信息
      *
      * @return 用户信息
      */
-    public LoginUser getLoginUser(HttpServletRequest request)
-    {
+    public LoginUser getLoginUser(HttpServletRequest request) {
         // 获取请求携带的令牌
         String token = getToken(request);
-        if (StringUtils.isNotEmpty(token))
-        {
-            Claims claims = parseToken(token);
-            // 解析对应的权限以及用户信息
-            String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
-            String userKey = getTokenKey(uuid);
-            LoginUser user = redisCache.getCacheObject(userKey);
-            return user;
+        if (StringUtils.isNotEmpty(token)) {
+            try {
+                Claims claims = parseToken(token);
+                // 解析对应的权限以及用户信息
+                String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
+                String userKey = getTokenKey(uuid);
+                LoginUser user = redisCache.getCacheObject(userKey);
+                return user;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -77,10 +79,8 @@ public class TokenService
     /**
      * 设置用户身份信息
      */
-    public void setLoginUser(LoginUser loginUser)
-    {
-        if (StringUtils.isNotNull(loginUser) && StringUtils.isNotEmpty(loginUser.getToken()))
-        {
+    public void setLoginUser(LoginUser loginUser) {
+        if (StringUtils.isNotNull(loginUser) && StringUtils.isNotEmpty(loginUser.getToken())) {
             refreshToken(loginUser);
         }
     }
@@ -88,32 +88,29 @@ public class TokenService
     /**
      * 删除用户身份信息
      */
-    public void delLoginUser(String token,String userId)
-    {
-        if (StringUtils.isNotEmpty(token))
-        {
+    public void delLoginUser(String token, String userId) {
+        if (StringUtils.isNotEmpty(token)) {
             String userKey = getTokenKey(token);
             redisCache.deleteObject(userKey);
         }
 
-        if (!soloLogin && StringUtils.isNotNull(userId))
-        {
+        if (!soloLogin && StringUtils.isNotNull(userId)) {
             String userIdKey = getUserIdKey(userId);
             redisCache.deleteObject(userIdKey);
         }
     }
-    private String getUserIdKey(String userId)
-    {
+
+    private String getUserIdKey(String userId) {
         return Constants.LOGIN_USERID_KEY + userId;
     }
+
     /**
      * 创建令牌
      *
      * @param loginUser 用户信息
      * @return 令牌
      */
-    public String createToken(LoginUser loginUser)
-    {
+    public String createToken(LoginUser loginUser) {
         String token = IdUtils.fastUUID();
         loginUser.setToken(token);
         setUserAgent(loginUser);
@@ -129,12 +126,10 @@ public class TokenService
      * @param loginUser
      * @return 令牌
      */
-    public void verifyToken(LoginUser loginUser)
-    {
+    public void verifyToken(LoginUser loginUser) {
         long expireTime = loginUser.getExpireTime();
         long currentTime = System.currentTimeMillis();
-        if (expireTime - currentTime <= MILLIS_MINUTE_TEN)
-        {
+        if (expireTime - currentTime <= MILLIS_MINUTE_TEN) {
             refreshToken(loginUser);
         }
     }
@@ -144,15 +139,13 @@ public class TokenService
      *
      * @param loginUser 登录信息
      */
-    public void refreshToken(LoginUser loginUser)
-    {
+    public void refreshToken(LoginUser loginUser) {
         loginUser.setLoginTime(System.currentTimeMillis());
         loginUser.setExpireTime(loginUser.getLoginTime() + expireTime * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
         String userKey = getTokenKey(loginUser.getToken());
         redisCache.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MINUTES);
-        if (!soloLogin)
-        {
+        if (!soloLogin) {
             // 缓存用户唯一标识，防止同一帐号，同时登录
             String userIdKey = getUserIdKey(loginUser.getUser().getId());
             redisCache.setCacheObject(userIdKey, userKey, expireTime, TimeUnit.MINUTES);
@@ -164,8 +157,7 @@ public class TokenService
      *
      * @param loginUser 登录信息
      */
-    public void setUserAgent(LoginUser loginUser)
-    {
+    public void setUserAgent(LoginUser loginUser) {
         UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtils.getRequest().getHeader("User-Agent"));
         String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
         loginUser.setMenuPermissions(loginUser.getUser());
@@ -181,8 +173,7 @@ public class TokenService
      * @param claims 数据声明
      * @return 令牌
      */
-    private String createToken(Map<String, Object> claims)
-    {
+    private String createToken(Map<String, Object> claims) {
         String token = Jwts.builder()
                 .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
@@ -195,8 +186,7 @@ public class TokenService
      * @param token 令牌
      * @return 数据声明
      */
-    private Claims parseToken(String token)
-    {
+    private Claims parseToken(String token) {
         return Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
@@ -209,8 +199,7 @@ public class TokenService
      * @param token 令牌
      * @return 用户名
      */
-    public String getUsernameFromToken(String token)
-    {
+    public String getUsernameFromToken(String token) {
         Claims claims = parseToken(token);
         return claims.getSubject();
     }
@@ -221,18 +210,15 @@ public class TokenService
      * @param request
      * @return token
      */
-    private String getToken(HttpServletRequest request)
-    {
+    private String getToken(HttpServletRequest request) {
         String token = request.getHeader(header);
-        if (StringUtils.isNotEmpty(token) && token.startsWith(Constants.TOKEN_PREFIX))
-        {
+        if (StringUtils.isNotEmpty(token) && token.startsWith(Constants.TOKEN_PREFIX)) {
             token = token.replace(Constants.TOKEN_PREFIX, "");
         }
         return token;
     }
 
-    private String getTokenKey(String uuid)
-    {
+    private String getTokenKey(String uuid) {
         return Constants.LOGIN_TOKEN_KEY + uuid;
     }
 }
