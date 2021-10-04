@@ -11,7 +11,7 @@ import com.aidex.common.core.text.Convert;
 
 /**
  * 客户端工具类
- * 
+ *
  * @author ruoyi
  */
 public class ServletUtils
@@ -49,6 +49,22 @@ public class ServletUtils
     }
 
     /**
+     * 获取Boolean参数
+     */
+    public static Boolean getParameterToBool(String name)
+    {
+        return Convert.toBool(getRequest().getParameter(name));
+    }
+
+    /**
+     * 获取Boolean参数
+     */
+    public static Boolean getParameterToBool(String name, Boolean defaultValue)
+    {
+        return Convert.toBool(getRequest().getParameter(name), defaultValue);
+    }
+
+    /**
      * 获取request
      */
     public static HttpServletRequest getRequest()
@@ -80,7 +96,7 @@ public class ServletUtils
 
     /**
      * 将字符串渲染到客户端
-     * 
+     *
      * @param response 渲染对象
      * @param string 待渲染的字符串
      * @return null
@@ -103,7 +119,7 @@ public class ServletUtils
 
     /**
      * 是否是Ajax异步请求
-     * 
+     *
      * @param request
      */
     public static boolean isAjaxRequest(HttpServletRequest request)

@@ -4,10 +4,13 @@ package com.aidex.common.core.service;
 import com.aidex.common.core.domain.BaseEntity;
 import com.aidex.common.core.mapper.BaseMapper;
 import com.aidex.common.core.page.PageDomain;
+import com.aidex.common.core.page.TableSupport;
 import com.aidex.common.exception.SysException;
+import com.aidex.common.utils.StringUtils;
 import com.aidex.common.utils.bean.BeanUtils;
 import com.aidex.common.utils.log.ContextHandler;
 import com.aidex.common.utils.reflect.ReflectUtils;
+import com.aidex.common.utils.sql.SqlUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.SerializationUtils;
@@ -89,7 +92,14 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEnt
 	@Override
 	public PageInfo<T> findPage(T entity) {
 		PageDomain page = entity.getPage();
-		PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+		Integer pageNum = page.getPageNum();
+		Integer pageSize = page.getPageSize();
+		if (StringUtils.isNotNull(pageNum) && StringUtils.isNotNull(pageSize))
+		{
+			String orderBy = SqlUtil.escapeOrderBySql(page.getOrderBy());
+			Boolean reasonable = page.getReasonable();
+			PageHelper.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);
+		}
 		return new PageInfo(findList(entity));
 	}
 
