@@ -1,6 +1,6 @@
 <template>
   <div class="padding-card monitor-box" style="margin-top: -16px;padding-bottom: 16px;">
-    <a-spin tip="玩命加载中..." :spinning="loading">
+    <a-spin tip="正在加载服务监控数据，请稍后" :spinning="loading">
       <a-space direction="vertical" size="middle">
         <a-row class="columns-list-ul" :gutter="16">
           <a-col :span="6">

@@ -1,6 +1,6 @@
 <template>
   <div class="padding-card">
-    <a-spin tip="玩命加载中..." :spinning="loading">
+    <a-spin tip="正在加载缓存监控数据，请稍后！" :spinning="loading">
       <a-row :gutter="16">
         <a-col :span="24">
           <a-card title="基本信息" :bordered="false">
