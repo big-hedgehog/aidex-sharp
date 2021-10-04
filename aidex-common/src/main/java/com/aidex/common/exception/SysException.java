@@ -15,10 +15,6 @@ public class SysException extends BaseException {
         super(DEFAULT_ERR_CODE, errMessage);
     }
 
-    public SysException(String errCode, String errMessage) {
-        super(errCode, errMessage);
-    }
-
     public SysException(int errCode, String errMessage) {
         super(String.valueOf(errCode), errMessage);
     }
