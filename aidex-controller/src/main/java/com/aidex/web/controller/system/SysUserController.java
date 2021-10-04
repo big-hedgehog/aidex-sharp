@@ -10,10 +10,8 @@ import com.aidex.common.core.domain.model.LoginUser;
 import com.aidex.common.core.page.PageDomain;
 import com.aidex.common.enums.BusinessType;
 import com.aidex.common.utils.SecurityUtils;
-import com.aidex.common.utils.ServletUtils;
 import com.aidex.common.utils.StringUtils;
 import com.aidex.common.utils.poi.ExcelUtil;
-import com.aidex.framework.web.service.TokenService;
 import com.aidex.system.domain.SysPost;
 import com.aidex.system.domain.SysUserRole;
 import com.aidex.system.service.ISysRoleService;
@@ -43,6 +41,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/system/user")
 public class SysUserController extends BaseController {
+
     @Autowired
     private ISysUserService userService;
 
@@ -51,9 +50,6 @@ public class SysUserController extends BaseController {
 
     @Autowired
     private SysPostService postService;
-
-    @Autowired
-    private TokenService tokenService;
 
     /**
      * 获取用户列表
@@ -80,7 +76,7 @@ public class SysUserController extends BaseController {
     public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception {
         ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
         List<SysUser> userList = util.importExcel(file.getInputStream());
-        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+        LoginUser loginUser = getLoginUser();
         String operName = loginUser.getUsername();
         String message = userService.importUser(userList, updateSupport, operName);
         return AjaxResult.success(message);

@@ -42,7 +42,7 @@ public class SysProfileController extends BaseController
     @GetMapping
     public R<Map<String,Object>> profile()
     {
-        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+        LoginUser loginUser = getLoginUser();
         SysUser user = loginUser.getUser();
         Map<String,Object> resultMap = new HashMap<String,Object>(3);
         resultMap.put("user",user);
@@ -91,7 +91,7 @@ public class SysProfileController extends BaseController
     @PutMapping("/updatePwd")
     public AjaxResult updatePwd(String oldPassword, String newPassword)
     {
-        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+        LoginUser loginUser = getLoginUser();
         String userName = loginUser.getUsername();
         String password = loginUser.getPassword();
         if (!SecurityUtils.matchesPassword(oldPassword, password))
@@ -121,7 +121,7 @@ public class SysProfileController extends BaseController
     {
         if (!file.isEmpty())
         {
-            LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+            LoginUser loginUser = getLoginUser();
             String avatar = FileUploadUtils.upload(AiDexConfig.getAvatarPath(), file);
             if (userService.updateUserAvatar(loginUser.getUsername(), avatar))
             {

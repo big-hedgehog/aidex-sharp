@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * 角色信息
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -42,10 +42,10 @@ public class SysRoleController extends BaseController
 
     @Autowired
     private TokenService tokenService;
-    
+
     @Autowired
     private SysPermissionService permissionService;
-    
+
     @Autowired
     private ISysUserService userService;
 
@@ -102,7 +102,7 @@ public class SysRoleController extends BaseController
         if (roleService.updateRole(role) > 0)
         {
             // 更新缓存用户权限
-            LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+            LoginUser loginUser = getLoginUser();
             if (StringUtils.isNotNull(loginUser.getUser()) && !loginUser.getUser().isAdmin())
             {
                 loginUser.setPermissions(permissionService.getMenuPermission(loginUser.getUser()));

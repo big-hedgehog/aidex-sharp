@@ -7,6 +7,7 @@ import com.aidex.common.core.domain.entity.SysUser;
 import com.aidex.common.core.domain.model.LoginBody;
 import com.aidex.common.core.domain.model.LoginUser;
 import com.aidex.common.core.redis.RedisCache;
+import com.aidex.common.utils.SecurityUtils;
 import com.aidex.common.utils.ServletUtils;
 import com.aidex.framework.web.service.SysLoginService;
 import com.aidex.framework.web.service.SysPermissionService;
@@ -30,12 +31,12 @@ import java.util.Set;
 
 /**
  * 登录验证
- * 
+ *
  * @author ruoyi
  */
 @RestController
-public class SysLoginController
-{
+public class SysLoginController {
+
     @Autowired
     private SysLoginService loginService;
 
@@ -50,19 +51,21 @@ public class SysLoginController
 
     @Autowired
     private TokenService tokenService;
+
     @Autowired
     private SysPortalConfigService sysPortalConfigService;
+
     @Autowired
     private RedisCache redisCache;
+
     /**
      * 登录方法
-     * 
+     *
      * @param loginBody 登录信息
      * @return 结果
      */
     @PostMapping("/login")
-    public AjaxResult login(@RequestBody LoginBody loginBody)
-    {
+    public AjaxResult login(@RequestBody LoginBody loginBody) {
         AjaxResult ajax = AjaxResult.success();
         // 生成令牌
         String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
@@ -73,30 +76,28 @@ public class SysLoginController
 
     /**
      * 获取用户信息
-     * 
+     *
      * @return 用户信息
      */
     @GetMapping("getInfo")
-    public AjaxResult getInfo()
-    {
-        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
-        SysUser user = loginUser.getUser();
+    public AjaxResult getInfo() {
+        SysUser user = SecurityUtils.getLoginUser().getUser();
         // 角色集合
         Set<String> roles = permissionService.getRolePermission(user);
         // 权限集合
         Set<String> permissions = permissionService.getMenuPermission(user);
         AjaxResult ajax = AjaxResult.success();
         //获取用户自定义首页
-        Map<String,Object> resultMap = sysPortalConfigService.findUserConfigList(user);
-        if(resultMap != null){
-            List<SysPortalConfig> userPortalConfig = (List<SysPortalConfig>)resultMap.get("portalList");
-            SysPortalConfig defaultSysPortalConfig = (SysPortalConfig)resultMap.get("default");
+        Map<String, Object> resultMap = sysPortalConfigService.findUserConfigList(user);
+        if (resultMap != null) {
+            List<SysPortalConfig> userPortalConfig = (List<SysPortalConfig>) resultMap.get("portalList");
+            SysPortalConfig defaultSysPortalConfig = (SysPortalConfig) resultMap.get("default");
             ajax.put("userPortalConfig", userPortalConfig);
             ajax.put("defaultPortalConfig", defaultSysPortalConfig);
         }
         //获取用户待读通知公告
         List<SysNotice> sysNoticeList = sysNoticeService.getNoticeListByUserId(user.getId());
-        if(CollectionUtils.isEmpty(sysNoticeList)){
+        if (CollectionUtils.isEmpty(sysNoticeList)) {
             sysNoticeList = new ArrayList<SysNotice>();
         }
         String lincenseInfo = redisCache.getStringValue("aidex.license.info");
@@ -110,15 +111,13 @@ public class SysLoginController
 
     /**
      * 获取路由信息
-     * 
+     *
      * @return 路由信息
      */
     @GetMapping("getRouters")
-    public AjaxResult getRouters()
-    {
-        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+    public AjaxResult getRouters() {
         // 用户信息
-        SysUser user = loginUser.getUser();
+        SysUser user = SecurityUtils.getLoginUser().getUser();
         List<SysMenu> menus = menuService.selectMenuTreeByUserId(user.getId());
         return AjaxResult.success(menuService.buildMenus(menus));
     }

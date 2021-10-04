@@ -1,41 +1,40 @@
 package com.aidex.framework.aspectj;
 
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.aidex.common.annotation.Log;
 import com.aidex.common.core.domain.BaseEntity;
+import com.aidex.common.core.domain.model.LoginUser;
+import com.aidex.common.enums.BusinessStatus;
+import com.aidex.common.enums.HttpMethod;
+import com.aidex.common.utils.SecurityUtils;
+import com.aidex.common.utils.ServletUtils;
+import com.aidex.common.utils.StringUtils;
+import com.aidex.common.utils.ip.IpUtils;
 import com.aidex.common.utils.log.ContextHandler;
-import com.aidex.system.domain.SysLog;
+import com.aidex.framework.manager.AsyncManager;
+import com.aidex.framework.manager.factory.AsyncFactory;
+import com.aidex.system.domain.SysOperLog;
+import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerMapping;
-import com.alibaba.fastjson.JSON;
-import com.aidex.common.annotation.Log;
-import com.aidex.common.core.domain.model.LoginUser;
-import com.aidex.common.enums.BusinessStatus;
-import com.aidex.common.enums.HttpMethod;
-import com.aidex.common.utils.ServletUtils;
-import com.aidex.common.utils.StringUtils;
-import com.aidex.common.utils.ip.IpUtils;
-import com.aidex.common.utils.spring.SpringUtils;
-import com.aidex.framework.manager.AsyncManager;
-import com.aidex.framework.manager.factory.AsyncFactory;
-import com.aidex.framework.web.service.TokenService;
-import com.aidex.system.domain.SysOperLog;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * 操作日志记录处理
@@ -87,7 +86,7 @@ public class LogAspect {
             }
 
             // 获取当前的用户
-            LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
+            LoginUser loginUser = SecurityUtils.getLoginUser();
 
             // *========数据库日志=========*//
             SysOperLog operLog = new SysOperLog();
@@ -201,19 +200,13 @@ public class LogAspect {
      */
     private String argsArrayToString(Object[] paramsArray) {
         String params = "";
-        if (paramsArray != null && paramsArray.length > 0)
-        {
-            for (Object o : paramsArray)
-            {
-                if (StringUtils.isNotNull(o) && !isFilterObject(o))
-                {
-                    try
-                    {
+        if (paramsArray != null && paramsArray.length > 0) {
+            for (Object o : paramsArray) {
+                if (StringUtils.isNotNull(o) && !isFilterObject(o)) {
+                    try {
                         Object jsonObj = JSON.toJSON(o);
                         params += jsonObj.toString() + " ";
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (Exception e) {
                     }
                 }
             }

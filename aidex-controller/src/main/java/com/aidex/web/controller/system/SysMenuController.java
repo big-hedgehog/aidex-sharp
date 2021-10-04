@@ -9,9 +9,7 @@ import com.aidex.common.core.domain.TreeNode;
 import com.aidex.common.core.domain.entity.SysMenu;
 import com.aidex.common.core.domain.model.LoginUser;
 import com.aidex.common.enums.BusinessType;
-import com.aidex.common.utils.ServletUtils;
 import com.aidex.common.utils.StringUtils;
-import com.aidex.framework.web.service.TokenService;
 import com.aidex.system.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,7 +24,7 @@ import java.util.Map;
 
 /**
  * 菜单信息
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -35,9 +33,6 @@ public class SysMenuController extends BaseController
 {
     @Autowired
     private SysMenuService menuService;
-
-    @Autowired
-    private TokenService tokenService;
 
     /**
      * 根据层级展开部门树表格
@@ -61,11 +56,11 @@ public class SysMenuController extends BaseController
     /**
      * 获取菜单列表
      */
-    //@PreAuthorize("@ss.hasPermi('system:menu:list')")
+    @PreAuthorize("@ss.hasPermi('system:menu:list')")
     @GetMapping("/list")
     public R list(SysMenu menu)
     {
-        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+        LoginUser loginUser = getLoginUser();
         String userId = loginUser.getUser().getId();
         List<SysMenu> menus = menuService.selectMenuList(menu, userId);
         return R.data(menus);
@@ -109,7 +104,7 @@ public class SysMenuController extends BaseController
         if (level == 0) {
             level = 2;
         }
-        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+        LoginUser loginUser = getLoginUser();
         String userId = loginUser.getUser().getId();
         //默认为根节点
         if (StringUtils.isEmpty(id)) {
@@ -124,7 +119,7 @@ public class SysMenuController extends BaseController
     @GetMapping(value = "/roleMenuTreeselect/{roleId}")
     public R roleMenuTreeselect(@PathVariable("roleId") String roleId)
     {
-        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+        LoginUser loginUser = getLoginUser();
         List<SysMenu> menus = menuService.selectMenuList(loginUser.getUser().getId());
         Map<String, Object> ajax = new HashMap<String, Object>(2);
         ajax.put("checkedKeys", menuService.selectMenuListByRoleId(roleId));

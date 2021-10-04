@@ -181,7 +181,7 @@ public class BaseController
      */
     public String getUserId()
     {
-        return getLoginUser().getUser().getId();
+        return getLoginUser().getUserId();
     }
 
     /**
@@ -189,7 +189,7 @@ public class BaseController
      */
     public String getDeptId()
     {
-        return getLoginUser().getUser().getDeptId();
+        return getLoginUser().getDeptId();
     }
 
     /**
@@ -199,6 +199,5 @@ public class BaseController
     {
         return getLoginUser().getUsername();
     }
-
 
 }

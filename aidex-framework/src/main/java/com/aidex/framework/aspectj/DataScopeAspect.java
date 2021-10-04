@@ -1,8 +1,12 @@
 package com.aidex.framework.aspectj;
 
-import java.lang.reflect.Method;
-
+import com.aidex.common.annotation.DataScope;
+import com.aidex.common.core.domain.BaseEntity;
 import com.aidex.common.core.domain.entity.SysRole;
+import com.aidex.common.core.domain.entity.SysUser;
+import com.aidex.common.core.domain.model.LoginUser;
+import com.aidex.common.utils.SecurityUtils;
+import com.aidex.common.utils.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,14 +14,8 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-import com.aidex.common.annotation.DataScope;
-import com.aidex.common.core.domain.BaseEntity;
-import com.aidex.common.core.domain.entity.SysUser;
-import com.aidex.common.core.domain.model.LoginUser;
-import com.aidex.common.utils.ServletUtils;
-import com.aidex.common.utils.StringUtils;
-import com.aidex.common.utils.spring.SpringUtils;
-import com.aidex.framework.web.service.TokenService;
+
+import java.lang.reflect.Method;
 
 /**
  * 数据过滤处理
@@ -80,7 +78,7 @@ public class DataScopeAspect
             return;
         }
         // 获取当前的用户
-        LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
+        LoginUser loginUser = SecurityUtils.getLoginUser();
         if (StringUtils.isNotNull(loginUser))
         {
             SysUser currentUser = loginUser.getUser();
