@@ -111,7 +111,7 @@ public class LogAspect {
             operLog.setRequestMethod(ServletUtils.getRequest().getMethod());
             // 处理设置注解上的参数
             getControllerMethodDescription(joinPoint, controllerLog, operLog, jsonResult);
-            operLog.setTakeUpTime(takeUpTime + "");
+            operLog.setTakeUpTime(takeUpTime);
             //设置数据变更
             setLogContent(operLog);
             // 保存数据库

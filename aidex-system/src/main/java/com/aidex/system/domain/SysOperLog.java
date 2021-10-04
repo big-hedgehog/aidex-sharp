@@ -85,5 +85,5 @@ public class SysOperLog extends BaseEntity<SysOperLog>
 
     private String logContent;	// 日志内容
     private String formId;//操作数据对于表单ID
-    private String takeUpTime;//耗时
+    private long takeUpTime;//耗时
 }
