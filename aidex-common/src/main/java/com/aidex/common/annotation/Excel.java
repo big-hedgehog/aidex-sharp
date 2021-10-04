@@ -1,5 +1,7 @@
 package com.aidex.common.annotation;
 
+import com.aidex.common.utils.poi.ExcelHandlerAdapter;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -108,7 +110,17 @@ public @interface Excel
     /**
      * 导出字段对齐方式（0：默认；1：靠左；2：居中；3：靠右）
      */
-    Align align() default Align.AUTO;
+    public Align align() default Align.AUTO;
+
+    /**
+     * 自定义数据处理器
+     */
+    public Class<?> handler() default ExcelHandlerAdapter.class;
+
+    /**
+     * 自定义数据处理器参数
+     */
+    public String[] args() default {};
 
     public enum Align
     {
