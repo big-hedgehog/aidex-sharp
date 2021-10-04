@@ -51,7 +51,7 @@
 			AND t.menu_code like concat('%', #{menuCode}, '%')
 		</if>
 		<if test="visible != null and visible != ''">
-			AND visible = #{visible}
+			AND t.visible = t.#{visible}
 		</if>
 		<if test="component != null and component != ''">
 			AND t.component like concat('%', #{component}, '%')
