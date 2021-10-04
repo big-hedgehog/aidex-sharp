@@ -1,6 +1,7 @@
 package com.aidex.web.controller.system;
 
 import com.aidex.common.annotation.Log;
+import com.aidex.common.annotation.RepeatSubmit;
 import com.aidex.common.core.controller.BaseController;
 import com.aidex.common.core.domain.R;
 import com.aidex.common.core.page.PageDomain;
@@ -85,6 +86,7 @@ public class SysDictDataController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:dict:add')")
     @Log(title = "字典类型", businessType = BusinessType.INSERT)
     @PostMapping
+    @RepeatSubmit
     public R save(@Validated @RequestBody SysDictData dictData) {
         return R.status(dictDataService.save(dictData));
     }
