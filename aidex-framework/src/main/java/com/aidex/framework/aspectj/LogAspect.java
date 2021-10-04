@@ -238,13 +238,13 @@ public class LogAspect {
             return clazz.getComponentType().isAssignableFrom(MultipartFile.class);
         } else if (Collection.class.isAssignableFrom(clazz)) {
             Collection collection = (Collection) o;
-            for (Iterator iter = collection.iterator(); iter.hasNext(); ) {
-                return iter.next() instanceof MultipartFile;
+            for (Object value : collection) {
+                return value instanceof MultipartFile;
             }
         } else if (Map.class.isAssignableFrom(clazz)) {
             Map map = (Map) o;
-            for (Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
-                Map.Entry entry = (Map.Entry) iter.next();
+            for (Object value : map.entrySet()) {
+                Map.Entry entry = (Map.Entry) value;
                 return entry.getValue() instanceof MultipartFile;
             }
         }

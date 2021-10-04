@@ -8,14 +8,10 @@ import com.aidex.common.core.domain.model.LoginUser;
 import com.aidex.common.utils.SecurityUtils;
 import com.aidex.common.utils.StringUtils;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Method;
 
 /**
  * 数据过滤处理
@@ -56,27 +52,15 @@ public class DataScopeAspect
      */
     public static final String DATA_SCOPE = "dataScope";
 
-    // 配置织入点
-    @Pointcut("@annotation(com.aidex.common.annotation.DataScope)")
-    public void dataScopePointCut()
-    {
-    }
-
-    @Before("dataScopePointCut()")
-    public void doBefore(JoinPoint point) throws Throwable
+    @Before("@annotation(controllerDataScope)")
+    public void doBefore(JoinPoint point, DataScope controllerDataScope) throws Throwable
     {
         clearDataScope(point);
-        handleDataScope(point);
+        handleDataScope(point, controllerDataScope);
     }
 
-    protected void handleDataScope(final JoinPoint joinPoint)
+    protected void handleDataScope(final JoinPoint joinPoint, DataScope controllerDataScope)
     {
-        // 获得注解
-        DataScope controllerDataScope = getAnnotationLog(joinPoint);
-        if (controllerDataScope == null)
-        {
-            return;
-        }
         // 获取当前的用户
         LoginUser loginUser = SecurityUtils.getLoginUser();
         if (StringUtils.isNotNull(loginUser))
@@ -113,28 +97,24 @@ public class DataScopeAspect
             else if (DATA_SCOPE_CUSTOM.equals(dataScope))
             {
                 sqlString.append(StringUtils.format(
-                        " OR {}.create_dept IN ( SELECT dept_id FROM sys_role_dept WHERE role_id = '{}' ) ", deptAlias,
+                        " OR {}.dept_id IN ( SELECT dept_id FROM sys_role_dept WHERE role_id = {} ) ", deptAlias,
                         role.getId()));
             }
             else if (DATA_SCOPE_DEPT.equals(dataScope))
             {
-                sqlString.append(StringUtils.format(" OR {}.create_dept = '{}' ", deptAlias, user.getDeptId()));
+                sqlString.append(StringUtils.format(" OR {}.dept_id = {} ", deptAlias, user.getDeptId()));
             }
             else if (DATA_SCOPE_DEPT_AND_CHILD.equals(dataScope))
             {
-                /*sqlString.append(StringUtils.format(
-                        " OR {}.create_dept IN ( SELECT id FROM sys_dept WHERE id = '{}' or find_in_set( {} , ancestors ) )",
-                        deptAlias, user.getDeptId(), user.getDeptId()));*/
-
                 sqlString.append(StringUtils.format(
-                        " OR {}.create_dept IN ( select id from sys_dept sd  where  instr(CONCAT(sd.parent_ids, '/'),CONCAT('{}', '/'))>0 )",
-                        deptAlias, user.getDeptId()));
+                        " OR {}.dept_id IN ( SELECT dept_id FROM sys_dept WHERE dept_id = {} or find_in_set( {} , ancestors ) )",
+                        deptAlias, user.getDeptId(), user.getDeptId()));
             }
             else if (DATA_SCOPE_SELF.equals(dataScope))
             {
                 if (StringUtils.isNotBlank(userAlias))
                 {
-                    sqlString.append(StringUtils.format(" OR {}.create_by = '{}' ", userAlias, user.getId()));
+                    sqlString.append(StringUtils.format(" OR {}.user_id = {} ", userAlias, user.getId()));
                 }
                 else
                 {
@@ -153,22 +133,6 @@ public class DataScopeAspect
                 baseEntity.getParams().put(DATA_SCOPE, " AND (" + sqlString.substring(4) + ")");
             }
         }
-    }
-
-    /**
-     * 是否存在注解，如果存在就获取
-     */
-    private DataScope getAnnotationLog(JoinPoint joinPoint)
-    {
-        Signature signature = joinPoint.getSignature();
-        MethodSignature methodSignature = (MethodSignature) signature;
-        Method method = methodSignature.getMethod();
-
-        if (method != null)
-        {
-            return method.getAnnotation(DataScope.class);
-        }
-        return null;
     }
 
     /**

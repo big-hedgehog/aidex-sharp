@@ -1,6 +1,8 @@
 package com.aidex.framework.aspectj;
 
-import java.util.Objects;
+import com.aidex.common.annotation.DataSource;
+import com.aidex.common.utils.StringUtils;
+import com.aidex.framework.datasource.DynamicDataSourceContextHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,13 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import com.aidex.common.annotation.DataSource;
-import com.aidex.common.utils.StringUtils;
-import com.aidex.framework.datasource.DynamicDataSourceContextHolder;
+
+import java.util.Objects;
 
 /**
  * 多数据源处理
- * 
+ *
  * @author ruoyi
  */
 @Aspect
