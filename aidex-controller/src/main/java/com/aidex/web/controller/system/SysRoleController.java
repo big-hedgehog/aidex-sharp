@@ -205,7 +205,7 @@ public class SysRoleController extends BaseController
     }
 
     @PreAuthorize("@ss.hasPermi('system:role:add,system:role:edit,system:role:delete')")
-    @Log(title = "角色管理", businessType = BusinessType.SAVE)
+    @Log(title = "角色管理", businessType = BusinessType.INSERT)
     @PostMapping("/batchSave")
     public R batchSave(@Validated @RequestBody List<SysRole> roleList)
     {

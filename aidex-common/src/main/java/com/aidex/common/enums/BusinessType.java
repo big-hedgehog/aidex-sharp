@@ -60,10 +60,7 @@ public enum BusinessType
      * 清空数据
      */
     SELECT,
-    /**
-     * 保存数据
-     */
-    SAVE,
+
     /**
      * 校验
      */
