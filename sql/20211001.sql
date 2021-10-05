@@ -17,7 +17,8 @@ SELECT
 FROM
 	information_schema. COLUMNS
 WHERE
-	TABLE_SCHEMA = '需要替换'
+	TABLE_SCHEMA = 'aidex_sharp'
+    AND CHARACTER_MAXIMUM_LENGTH != 128
 AND COLUMN_NAME IN (
 	'ipaddr',
 	'oper_ip',
