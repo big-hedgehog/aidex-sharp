@@ -36,6 +36,7 @@ public class SysOperLogServiceImpl extends BaseServiceImpl<SysOperLogMapper, Sys
      * 清空操作日志
      */
     @Override
+    @Transactional(readOnly = false)
     public void cleanOperLog()
     {
         mapper.cleanOperLog();
