@@ -164,4 +164,16 @@ public class GlobalExceptionHandler {
         return AjaxResult.error(e.getMessage());
     }
 
+    /**
+     * 权限空指针异常
+     */
+    @ExceptionHandler(NullPointerException.class)
+    public AjaxResult handleNullPointerException(NullPointerException e, HttpServletRequest request) {
+        String requestURI = request.getRequestURI();
+        e.printStackTrace();
+        log.error("请求地址'{}',发生空指针异常'{}'", requestURI, e.getMessage());
+        return AjaxResult.error("发生空指针异常，请反馈给管理员");
+    }
+
+
 }

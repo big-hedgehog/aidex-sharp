@@ -54,7 +54,7 @@ ALTER TABLE `sys_theme_config` COMMENT='用户主题信息记录表';
 ALTER TABLE `sys_portal_config` COMMENT='工作台配置表';
 
 
-ALTER TABLE `gen_table` MODIFY COLUMN `options`  varchar(4000)  DEFAULT NULL COMMENT '扩展选项'
+ALTER TABLE `gen_table` MODIFY COLUMN `options`  varchar(4000)  DEFAULT NULL COMMENT '扩展选项';
 
 
 ALTER TABLE `sys_dept`
@@ -99,3 +99,8 @@ delete from sys_dict_type where dict_type = 'sys_logical_symbol';
 
 -- 删除无用数据字典
 delete from sys_dict_data where dict_type = 'sys_logical_symbol';
+
+-- 修改部门表ID字段长度
+ALTER TABLE `sys_dept`
+MODIFY COLUMN `id`  varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门id' FIRST ;
+

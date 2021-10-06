@@ -82,27 +82,31 @@ public class DeptUtils implements CacheUtil {
 
     /**
      * 根据deptId获取部门对象
+     *
      * @param deptId
      * @return
      */
     public static SysDept getSysDept(String deptId) {
         SysDept sysDept = REDIS_CACHE.getCacheMapValue(CACHE_NAME, Constants.SYS_DEPT_KEY + deptId);
-        if(sysDept == null){
+        if (sysDept == null) {
             sysDept = sysDeptService.get(deptId);
-            REDIS_CACHE.setCacheMapValue(CACHE_NAME, Constants.SYS_DEPT_KEY + deptId, sysDept);
-            REDIS_CACHE.setCacheMapValue(CACHE_NAME, Constants.SYS_DEPT_DC_KEY + sysDept.getDeptCode(), sysDept);
+            if (null != sysDept) {
+                REDIS_CACHE.setCacheMapValue(CACHE_NAME, Constants.SYS_DEPT_KEY + deptId, sysDept);
+                REDIS_CACHE.setCacheMapValue(CACHE_NAME, Constants.SYS_DEPT_DC_KEY + sysDept.getDeptCode(), sysDept);
+            }
         }
         return sysDept;
     }
 
     /**
      * 根据deptCode获取部门对象
+     *
      * @param deptCode
      * @return
      */
     public static SysDept getSysDeptByDeptCode(String deptCode) {
         SysDept sysDept = REDIS_CACHE.getCacheMapValue(CACHE_NAME, Constants.SYS_DEPT_DC_KEY + deptCode);
-        if(sysDept == null){
+        if (sysDept == null) {
             sysDept = sysDeptService.selectDeptByDeptCode(deptCode);
             REDIS_CACHE.setCacheMapValue(CACHE_NAME, Constants.SYS_DEPT_KEY + sysDept.getId(), sysDept);
             REDIS_CACHE.setCacheMapValue(CACHE_NAME, Constants.SYS_DEPT_DC_KEY + deptCode, sysDept);
@@ -112,17 +116,19 @@ public class DeptUtils implements CacheUtil {
 
     /**
      * 清除指定部门缓存
+     *
      * @param sysDept
      */
-    public static void clearCache(SysDept sysDept){
+    public static void clearCache(SysDept sysDept) {
         REDIS_CACHE.deleteCacheMapValue(CACHE_NAME, Constants.SYS_DEPT_KEY + sysDept.getId(), Constants.SYS_DEPT_DC_KEY + sysDept.getDeptCode());
     }
 
     /**
      * 获取当前用户所属部门
+     *
      * @return
      */
-    public static SysDept getDept(){
+    public static SysDept getDept() {
         LoginUser loginUser = SecurityUtils.getLoginUser();
         SysUser sysUser = UserUtils.getSysUserByUserName(loginUser.getUsername());
         return getSysDept(sysUser.getDeptId());
