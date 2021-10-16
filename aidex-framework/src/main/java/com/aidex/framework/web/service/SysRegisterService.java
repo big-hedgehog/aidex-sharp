@@ -17,7 +17,7 @@ import com.aidex.system.service.ISysUserService;
 import com.aidex.system.service.SysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
+import com.aidex.common.utils.StringUtils;
 
 /**
  * 注册校验方法
@@ -67,7 +67,7 @@ public class SysRegisterService {
                 msg = "保存用户'" + username + "'失败，注册账号已存在";
                 e.printStackTrace();
             }
-            if (!StringUtils.hasLength(msg)) {
+            if (StringUtils.isEmpty(msg)) {
                 SysUser sysUser = new SysUser();
                 sysUser.setUserName(username);
                 sysUser.setNickName(username);

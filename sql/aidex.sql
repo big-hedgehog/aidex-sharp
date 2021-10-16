@@ -263,7 +263,7 @@ CREATE TABLE `sys_dict_data` (
   `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
-  `id` varchar(64) NOT NULL COMMENT '岗位ID',
+  `id` varchar(64) NOT NULL COMMENT 'ID',
   `version` int(11) DEFAULT NULL COMMENT '版本',
   `del_flag` char(1) DEFAULT '0' COMMENT '删除标志（0代表存在 1代表删除）',
   `update_ip` varchar(128) DEFAULT NULL COMMENT '更新IP',
