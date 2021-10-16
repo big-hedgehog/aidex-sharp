@@ -1,14 +1,14 @@
 package com.aidex.common.core.domain.model;
 
-import java.util.Collection;
-import java.util.Set;
-
+import com.aidex.common.core.domain.entity.SysUser;
 import com.aidex.common.core.domain.entity.SysUserMenu;
 import com.aidex.common.utils.spring.SpringUtils;
+import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.aidex.common.core.domain.entity.SysUser;
+
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * 登录用户身份权限
@@ -114,7 +114,7 @@ public class LoginUser implements UserDetails {
     }
 
 
-    @JsonIgnore
+    @JSONField(serialize = false)
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -128,7 +128,7 @@ public class LoginUser implements UserDetails {
     /**
      * 账户是否未过期,过期无法验证
      */
-    @JsonIgnore
+    @JSONField(serialize = false)
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -139,7 +139,7 @@ public class LoginUser implements UserDetails {
      *
      * @return
      */
-    @JsonIgnore
+    @JSONField(serialize = false)
     @Override
     public boolean isAccountNonLocked() {
         return true;
@@ -150,7 +150,7 @@ public class LoginUser implements UserDetails {
      *
      * @return
      */
-    @JsonIgnore
+    @JSONField(serialize = false)
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -161,7 +161,7 @@ public class LoginUser implements UserDetails {
      *
      * @return
      */
-    @JsonIgnore
+    @JSONField(serialize = false)
     @Override
     public boolean isEnabled() {
         return true;
