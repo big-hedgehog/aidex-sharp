@@ -136,8 +136,6 @@ public class TreeNodes implements Comparable<TreeNodes> {
         return orderBy1.compareTo(orderBy0);
     }
 
-    @Component
-    @ConfigurationCore
     static class TreeList implements BeanDefinitionRegistryPostProcessor {
         @Override
         public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {

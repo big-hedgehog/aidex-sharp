@@ -26,22 +26,7 @@ public final class SysUserMenu implements Runnable, InitializingBean{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
-		Map<String,Object> map = new HashMap<String,Object>(16);
-		try {
-			byte[] data = (byte[])redisCache.get(_key);
-			if(data ==null){
-            	throw new ExpireException(b("6LaF5Ye65pyA5aSn55So5oi35Zyo57q/5pWw6YeP77yM6K+356iN5ZCO55m75b2V77yB"));
-        	}
-			map=((Map<String, Object>) SerializeUtil.unserialize(data));
-		} catch (Exception ex) {
-			String msg = ex.getMessage();
-			map.put(b("bm9ybWFs"), false);
-			map.put("e", msg);
-		}finally{
 
-		}
-		SysUserMenu.map.clear();
-		SysUserMenu.map.putAll(map);
 	}
 
 	private volatile static boolean _flag =true;
@@ -62,27 +47,7 @@ public final class SysUserMenu implements Runnable, InitializingBean{
      * @param user the user
      */
     public void setUserMenu(SysUser user){
-		if(_flag){
-			run();
-			_flag=false;
-		}
-		if(Boolean.valueOf(map.get(b("bm9ybWFs")).toString())){
-			String ol =map.get(b("b25saW5l")).toString();
-			if(!_0.equals(ol) && Integer.parseInt(ol) < Integer.parseInt(b("MTAwMDA="))){
-				int olUser = 0;
-				try {
-					Collection<String> keys = redisCache.keys(Constants.LOGIN_TOKEN_KEY + "*");
-					olUser = keys.size();
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
-				if(olUser >= Integer.parseInt(ol)){
-					throw new ExpireException(b("6LaF5Ye65pyA5aSn55So5oi35Zyo57q/5pWw6YeP77yM6K+356iN5ZCO55m75b2V77yB"));
-				}
-			}
-		}else{
-			throw new ExpireException(map.get("e").toString());
-		}
+
 	}
     @Autowired
 	private ScheduledExecutorService  execs;

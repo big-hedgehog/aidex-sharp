@@ -1,6 +1,5 @@
 package com.aidex.framework.web.service;
 
-import com.aidex.common.core.domain.entity.SysUserMenu;
 import com.aidex.system.service.ISysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
