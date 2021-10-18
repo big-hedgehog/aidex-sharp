@@ -27,7 +27,7 @@ const errorHandler = (error) => {
     }
     notification.error({
       message: message,
-      duration: 5 * 1000
+      duration: 5
     })
   //  return Promise.reject(error) //注释该行，否则接口请求失败会一直请求刷新错误数据，这里保证请求一次
 }
@@ -111,7 +111,8 @@ request.interceptors.response.use((res) => {
     }
   } else if (code !== 200) {
     notification.error({
-      message: msg
+      message: msg,
+      duration: 5
     })
   } else {
     return res.data
