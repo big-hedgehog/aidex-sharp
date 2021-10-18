@@ -147,10 +147,9 @@ public class SysUserController extends BaseController {
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/resetPwd")
     public R resetPwd(@RequestBody SysUser user) {
-        userService.checkUserAllowed(user);
-        user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
-        user.setUpdateBy(SecurityUtils.getUsername());
-        return R.status(userService.resetPwd(user));
+        SysUser dbUser = userService.get(user.getId());
+        userService.checkUserAllowed(dbUser);
+        return R.status(userService.resetUserPwd(dbUser.getUserName(),SecurityUtils.encryptPassword(user.getPassword())));
     }
 
     /**

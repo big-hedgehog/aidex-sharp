@@ -306,19 +306,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     /**
      * 重置用户密码
      * 
-     * @param user 用户信息
-     * @return 结果
-     */
-    @Override
-    @Transactional(readOnly = false)
-    public boolean resetPwd(SysUser user)
-    {
-        return super.save(user);
-    }
-
-    /**
-     * 重置用户密码
-     * 
      * @param userName 用户名
      * @param password 密码
      * @return 结果

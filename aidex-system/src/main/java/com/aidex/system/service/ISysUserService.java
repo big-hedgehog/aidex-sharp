@@ -134,14 +134,6 @@ public interface ISysUserService extends BaseService<SysUser>
     /**
      * 重置用户密码
      *
-     * @param user 用户信息
-     * @return 结果
-     */
-    public boolean resetPwd(SysUser user);
-
-    /**
-     * 重置用户密码
-     *
      * @param userName 用户名
      * @param password 密码
      * @return 结果
