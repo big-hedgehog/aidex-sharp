@@ -16,7 +16,7 @@ public class IdUtils
      */
     public static String randomUUID()
     {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
     /**
