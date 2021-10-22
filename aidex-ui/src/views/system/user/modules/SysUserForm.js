@@ -20,10 +20,6 @@ export default {
       type: Array,
       required: true
     },
-    userSecretLevelOptions: {
-      type: Array,
-      required: true
-    },
     defalutExpandedKeys: {
       type: Array
     }
