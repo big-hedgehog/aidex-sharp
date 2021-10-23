@@ -38,7 +38,8 @@
    **承接各种XX软件和APP定制开发，请让我发挥专业的技能（UI设计+前端开发7年工龄的程序媛，请对我有信心，超出你的期待哦）具体私聊** 
   <br>
   我的微信二维码：
-  ![微信二维码](https://images.gitee.com/uploads/images/2021/1023/123437_41c4b786_9700683.png "屏幕截图.png")
+  <a target="_blank" href="https://images.gitee.com/uploads/images/2021/1023/123437_41c4b786_9700683.png">点击查看</a>
+ 
 ## 官方QQ群
 
 <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=8_5QVK727Jg0sEuLSOWRLiMqOIBGB_lp&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Aidex Sharp快速开发平台3群" title="Aidex Sharp快速开发平台3群"> 208511180 </a> 使用问题请入群由专人负责简答
