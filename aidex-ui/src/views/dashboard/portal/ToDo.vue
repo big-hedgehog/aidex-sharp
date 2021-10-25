@@ -1,5 +1,149 @@
 <template style="background:#f5f6fa;">
   <div class="typical-home" ref="portaletDiv">
+    <a-row :gutter="[24,24]" class="module-list">
+      <a-col :span="8">
+        <div class="module-in module-in01">
+          <a-page-header :ghost="false" title="技术选型">
+            <template slot="extra">
+              <a-icon type="more" />
+            </template>
+          </a-page-header>
+          <a-row :gutter="[24,24]">
+            <a-col :span="12">
+              <div class="technology">
+                <a-list size="small" :split="false" :data-source="consoleTech">
+                  <a-list-item slot="renderItem" slot-scope="item">
+                    {{ item }}
+                  </a-list-item>
+                  <div slot="header">
+                    后端
+                  </div>
+                </a-list>
+              </div>
+
+            </a-col>
+            <a-col :span="12">
+              <div class="technology">
+                <a-list size="small" :split="false" :data-source="frontTech" >
+                  <a-list-item slot="renderItem" slot-scope="item" >
+                    {{ item }}
+                  </a-list-item>
+                  <div slot="header">
+                    前端
+                  </div>
+                </a-list>
+              </div>s
+            </a-col>
+          </a-row>
+        </div>
+      </a-col>
+      <a-col :span="8">
+        <div class="module-in module-in01 ">
+          <a-page-header :ghost="false" title="联系我们">
+            <template slot="extra">
+              <a-icon type="more" />
+            </template>
+          </a-page-header>
+          <p>
+            <a-alert message="专业UI设计（5年+）+VUE前端功能开发（3年+）" type="info" show-icon />
+          </p>
+          <a-list item-layout="horizontal" :data-source="detaildata" class="list-detail">
+            <a-list-item class="module-text">
+              <a-list-item-meta>
+                <template slot="description">
+                  <span>【1】</span>
+                  <span>接AiDex Sharp系列架构的定制服务</span>
+                </template>
+              </a-list-item-meta>
+            </a-list-item>
+            <a-list-item class="module-text">
+              <a-list-item-meta>
+                <template slot="description">
+                  <span>【2】</span>
+                  <span >接3个月以内工期的vue、springboot、springcloud、app、小程序等软件定制服务</span>
+                </template>
+              </a-list-item-meta>
+            </a-list-item>
+            <a-list-item class="module-text">
+              <a-list-item-meta>
+                <template slot="description">
+                  <span>【3】</span>
+                  <span>UI原型页面设计服务</span>
+                </template>
+              </a-list-item-meta>
+            </a-list-item>
+            <a-list-item class="module-text">
+              <a-list-item-meta>
+                <template slot="description">
+                  <span>【4】</span>
+                  <span>有意向请联系唯一指定QQ:1125373330（皮皮大刺猬）</span>
+                </template>
+              </a-list-item-meta>
+            </a-list-item>
+          </a-list>
+        </div>
+      </a-col>
+      <!-- 个人信息 -->
+      <a-col :span="8">
+        <div class="module-in module-in07" style="height: 370px;">
+          <a-page-header :ghost="false" title="关于我">
+            <template slot="extra">
+              <a-icon type="more" />
+            </template>
+          </a-page-header>
+          <a-row>
+            <a-col>
+              <a-col class="name">
+                <span>皮皮大刺猬</span>
+                <a-icon type="form" @click="compileshowModal" />
+                <a-modal v-model="compile" title="Basic Modal" @ok="compilehandleOk" centered>
+                  <p>Some contents...</p>
+                  <p>Some contents...</p>
+                  <p>Some contents...</p>
+                </a-modal>
+              </a-col>
+              <a-col>
+                <span>我的QQ：</span>
+                <span>1125373330</span>
+              </a-col>
+              <a-col>
+                <span>QQ群：</span>
+                <span>208511180</span>
+              </a-col>
+              <a-col>
+                <span>我的微信：</span>
+                <span>big-hebgehog</span>
+              </a-col>
+              <a-col>
+                <span>我的特长：</span>
+                <span>专业UI设计（5年+）+VUE前端功能开发（3年+）</span>
+              </a-col>
+              <a-col>
+                <span>项目：</span>
+                <span><a style="color: red;" @click="goTarget('https://gitee.com/big-hedgehog/aidex-sharp')">若依-Adiex Sharp快速开发平台</a></span>
+              </a-col>
+              <a-col>
+                <a-row>
+                  <a-col :span="12">
+                    <div class="QQcode" style="text-align: center;background: #f7f7f7;border: 1px solid #e8e8e8;width: 124px; margin: 0 auto;border-radius: 8px;padding-top: 8px;">
+                      <img src="../images/QQCode.png"style="height:100px">
+                      <p style="margin-bottom: 8px;">QQ</p>
+                    </div>
+                  </a-col>
+                  <a-col :span="12">
+                    <div class="wxcode" style="text-align: center;background: #f7f7f7;border: 1px solid #e8e8e8;width: 124px; margin: 0 auto;border-radius: 8px;padding-top: 8px;">
+                      <img src="../images/wxCode.png" style="height:100px">
+                      <p style="margin-bottom: 8px;">微信</p>
+                    </div>
+                  </a-col>
+                </a-row>
+              </a-col>
+            </a-col>
+          </a-row>
+
+        </div>
+      </a-col>
+    </a-row>
     <a-row :gutter="[16,16]">
       <!-- 顶部列表 -->
       <a-col :span="16" class="module-list">
@@ -153,6 +297,7 @@
       </a-col>
       <a-col :span="8" class="module-list">
         <a-row :gutter="[0,16]">
+
           <!-- 公告 -->
           <a-col>
             <div class="module-in module-in06">
@@ -189,48 +334,7 @@
               </a-tabs>
             </div>
           </a-col>
-          <!-- 个人信息 -->
-          <a-col>
-            <div class="module-in module-in07">
-              <a-page-header :ghost="false" title="个人信息">
-                <template slot="extra">
-                  <a-icon type="more" />
-                </template>
-              </a-page-header>
-              <a-row type="flex">
-                <a-col flex="110px">
-                  <a-avatar size="large" icon="user" />
-                </a-col>
-                <a-col>
-                  <a-col class="name">
-                    <span>Aidex</span>
-                    <a-icon type="form" @click="compileshowModal" />
-                    <a-modal v-model="compile" title="Basic Modal" @ok="compilehandleOk" centered>
-                      <p>Some contents...</p>
-                      <p>Some contents...</p>
-                      <p>Some contents...</p>
-                    </a-modal>
-                  </a-col>
-                  <a-col>
-                    <span>员工编号：</span>
-                    <span>88888888888</span>
-                  </a-col>
-                  <a-col>
-                    <span>组织机构：</span>
-                    <span>Aidex Sharp快速开发平台</span>
-                  </a-col>
-                  <a-col>
-                    <span>所属群组：</span>
-                    <span>Aidex Sharp</span>
-                  </a-col>
-                  <a-col>
-                    <span>所属部门：</span>
-                    <span>市场部</span>
-                  </a-col>
-                </a-col>
-              </a-row>
-            </div>
-          </a-col>
+
           <!-- 产品热度 -->
           <a-col>
             <div class="module-in module-in08">
@@ -288,8 +392,22 @@
         </a-row>
       </a-col>
     </a-row>
-  </div>
+    </a-row></div>
 </template>
+<style type="less" >
+  body{
+    .modlule-show{
+          height: 240px;
+        .ant-btn-lg {
+          height: 40px;
+          padding: 0 15px;
+          font-size: 16px;
+          border-radius: 4px;
+       }
+    }
+  }
+
+</style>
 <script>
   import lineRadar from '@/views/demo/chart/line-chart'
   // 顶部列表
@@ -460,6 +578,24 @@
     '组件使用方法',
     '组件使用方法',
     '组件使用方法'
+  ]
+  // 后端技术
+  const consoleTech = [
+   'SpringBoot',
+   'Spring Security',
+   'JWT',
+   'MyBatis',
+   'Druid',
+   'Fastjson'
+  ]
+  // 前端技术
+  const frontTech = [
+   'Vue',
+   'Vuex',
+   'Ant-Design-VUE',
+   'Axios',
+   'Sass',
+   'Quill'
   ]
   // 公告
   const noticedata = [{
@@ -633,6 +769,8 @@
         projectdata,
         apidata,
         aiddata,
+        consoleTech,
+        frontTech,
         noticedata,
         dateFormat: 'YYYY-MM-DD',
         statisticscolumns,
@@ -682,6 +820,15 @@
       },
       modalcallback (key) {
         console.log(key)
+      },
+      goTarget (href) {
+        window.open(href, '_blank')
+      },
+      caseDisplay (href) {
+        this.$message.success(
+          '案例系统正在研发中，敬请期待！',
+          3
+         )
       }
     }
   }
