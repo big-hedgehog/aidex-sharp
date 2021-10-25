@@ -22,7 +22,8 @@
           </a-form-model-item>
         </a-col>
         <a-col class="gutter-row" :span="8">
-          <img class="getCaptcha" :src="codeUrl" @click="getCode">
+          <!-- <img class="getCaptcha" :src="codeUrl" @click="getCode"> -->
+          <img v-lazy="codeUrl" :key="codeUrl" @click="getCode" />
         </a-col>
       </a-row>
       <a-form-item>
@@ -72,7 +73,12 @@ export default {
   data () {
     return {
       allIcon,
-      codeUrl: '',
+      // codeUrl: '',
+      codeUrl: {
+        src: '',
+        error: require('../../assets/loading.gif'),
+        loading: require('../../assets/loading.gif')
+      },
       form: {
         username: 'admin',
         password: 'admin123',
@@ -170,7 +176,7 @@ export default {
   .user-layout-login label{
     font-size: 12px!important;
   }
-.user-layout-login {
+  .user-layout-login {
   label {
     font-size: 14px;
   }
@@ -182,7 +188,18 @@ export default {
     width: 100%;
     height: 40px;
   }
-
+  img[lazy="loading"]{
+    margin-top: 13px;
+    margin-left: 45px;
+  }
+  img[lazy="error"]{
+    margin-top: 13px;
+    margin-left: 45px;
+  }
+  img[lazy="loaded"]{
+    width: 100%;
+    height: 40px;
+  }
   button.login-button {
     padding: 0 15px;
     font-size: 16px;

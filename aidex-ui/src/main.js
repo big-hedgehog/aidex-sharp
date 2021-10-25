@@ -12,6 +12,7 @@ import { VueAxios } from './utils/request'
 import ProLayout, { PageHeaderWrapper } from '@/components/ProLayout'
 import FooterToolBar from '@/components/FooterToolbar'
 import themePluginConfig from '../config/themePluginConfig'
+import VueLazyload from 'vue-lazyload'
 
 // mock
 // WARNING: `mockjs` NOT SUPPORT `IE` PLEASE DO NOT USE IN `production` ENV.
@@ -48,6 +49,13 @@ Vue.config.productionTip = false
 
 // mount axios to `Vue.$http` and `this.$http`
 Vue.use(VueAxios)
+Vue.use(VueLazyload)
+// VueLazyload配置项
+Vue.use(VueLazyload, {
+  error: './assets/loading.gif',
+  loading: require('./assets/loading.gif')
+})
+
 // use pro-layout components
 Vue.component('pro-layout', ProLayout)
 Vue.component('page-container', PageHeaderWrapper)

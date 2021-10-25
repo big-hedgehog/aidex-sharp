@@ -1,7 +1,7 @@
 package com.aidex.framework.config;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+// import java.security.NoSuchAlgorithmException;
+// import java.security.SecureRandom;
 import java.util.Random;
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 
@@ -13,24 +13,24 @@ import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 public class KaptchaTextCreator extends DefaultTextCreator
 {
     private static final String[] CNUMBERS = "0,1,2,3,4,5,6,7,8,9,10".split(",");
-    private static Random random = null;
-    static {
-        try{
-            try {
-                random = SecureRandom.getInstance("NativePRNGNonBlocking");
-            } catch (Exception e) {
-                random = SecureRandom.getInstanceStrong();
-                e.printStackTrace();
-            }
-        }catch (NoSuchAlgorithmException e){
-            System.out.println("初始化随机对象失败"+e.getLocalizedMessage());
-        }
-    }
+    // private static Random random = null;
+    // static {
+    //     try{
+    //         try {
+    //             random = SecureRandom.getInstance("NativePRNGNonBlocking");
+    //         } catch (Exception e) {
+    //             random = SecureRandom.getInstanceStrong();
+    //             e.printStackTrace();
+    //         }
+    //     }catch (NoSuchAlgorithmException e){
+    //         System.out.println("初始化随机对象失败"+e.getLocalizedMessage());
+    //     }
+    // }
     @Override
     public String getText()
     {
         Integer result = 0;
-        // Random random = new Random();
+        Random random = new Random();
         int x = random.nextInt(10);
         int y = random.nextInt(10);
         StringBuilder suChinese = new StringBuilder();
