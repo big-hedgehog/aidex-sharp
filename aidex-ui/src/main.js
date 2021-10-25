@@ -27,6 +27,7 @@ import { getDicts, getAllDicts } from '@/api/system/dict/data'
 import { getConfigKey } from '@/api/system/config'
 import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, download, downloadTask, downloadByPath, handleTree, appendTreeNode, removeTreeNode, expandTree } from '@/utils/aidex'
 import Highlight from './utils/highlight'
+import VueLazyload from 'vue-lazyload'
 
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts
@@ -57,6 +58,14 @@ Vue.component('footer-tool-bar', FooterToolBar)
 Vue.use(permission)
 Vue.use(Highlight)
 Vue.use(draggable)
+
+Vue.use(VueLazyload)
+// VueLazyload配置项
+Vue.use(VueLazyload, {
+  error: '/static/images/loading.gif',
+  loading: require('./assets/loading.gif')
+})
+
 window.umi_plugin_ant_themeVar = themePluginConfig.theme
 new Vue({
   router,

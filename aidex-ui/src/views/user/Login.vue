@@ -17,12 +17,15 @@
         <a-col class="gutter-row" :span="16">
           <a-form-model-item prop="code">
             <a-input v-model="form.code" size="large" type="text" autocomplete="off" placeholder="验证码">
-              <a-icon slot="prefix" type="security-scan" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+              <a-icon slot="prefix" type="security-scan" :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
           </a-form-model-item>
         </a-col>
         <a-col class="gutter-row" :span="8">
-          <img class="getCaptcha" :src="codeUrl" @click="getCode">
+          <!-- <img class="getCaptcha" src="~@/assets/logo.png" @click="getCode"> -->
+          <!-- <img class="getCaptcha" :src="codeUrl" @click="getCode"> -->
+          <!-- <img :data-src="codeUrl" @click="getCode"> -->
+          <img v-lazy="codeUrl" :key="codeUrl" @click="getCode" />
         </a-col>
       </a-row>
       <a-form-item>
@@ -66,13 +69,19 @@ import { getCodeImg } from '@/api/login'
 import allIcon from '@/core/icons'
 
 export default {
+  name: 'Login',
   components: {
     allIcon
   },
   data () {
     return {
       allIcon,
-      codeUrl: '',
+      // codeUrl: '',
+      codeUrl: {
+        src: '',
+        error: require('../../assets/loading.gif'),
+        loading: require('../../assets/loading.gif')
+      },
       form: {
         username: 'admin',
         password: 'admin123',
@@ -170,7 +179,7 @@ export default {
   .user-layout-login label{
     font-size: 12px!important;
   }
-.user-layout-login {
+  .user-layout-login {
   label {
     font-size: 14px;
   }
@@ -182,7 +191,18 @@ export default {
     width: 100%;
     height: 40px;
   }
-
+  img[lazy="loading"]{
+    margin-top: 13px;
+    margin-left: 45px;
+  }
+  img[lazy="error"]{
+    margin-top: 13px;
+    margin-left: 45px;
+  }
+  img[lazy="loaded"]{
+    width: 100%;
+    height: 40px;
+  }
   button.login-button {
     padding: 0 15px;
     font-size: 16px;
@@ -209,5 +229,4 @@ export default {
     }
   }
 }
-
 </style>
