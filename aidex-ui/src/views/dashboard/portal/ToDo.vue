@@ -20,7 +20,6 @@
                   </div>
                 </a-list>
               </div>
-
             </a-col>
             <a-col :span="12">
               <div class="technology">
@@ -32,7 +31,7 @@
                     前端
                   </div>
                 </a-list>
-              </div>s
+              </div>
             </a-col>
           </a-row>
         </div>
@@ -68,7 +67,7 @@
               <a-list-item-meta>
                 <template slot="description">
                   <span>【3】</span>
-                  <span>UI原型页面设计服务</span>
+                  <span>UI原型页面设计及切图服务</span>
                 </template>
               </a-list-item-meta>
             </a-list-item>
@@ -76,7 +75,7 @@
               <a-list-item-meta>
                 <template slot="description">
                   <span>【4】</span>
-                  <span>有意向请联系唯一指定QQ:1125373330（皮皮大刺猬）</span>
+                  <span>有意向请联系唯一指定联系人：皮皮大刺猬（右侧扫码）</span>
                 </template>
               </a-list-item-meta>
             </a-list-item>
@@ -103,7 +102,7 @@
                 </a-modal>
               </a-col>
               <a-col>
-                <span>我的QQ：</span>
+                <span>QQ号：</span>
                 <span>1125373330</span>
               </a-col>
               <a-col>
@@ -111,7 +110,7 @@
                 <span>208511180</span>
               </a-col>
               <a-col>
-                <span>我的微信：</span>
+                <span>微信号：</span>
                 <span>big-hebgehog</span>
               </a-col>
               <a-col>
@@ -125,15 +124,15 @@
               <a-col>
                 <a-row>
                   <a-col :span="12">
-                    <div class="QQcode" style="text-align: center;background: #f7f7f7;border: 1px solid #e8e8e8;width: 124px; margin: 0 auto;border-radius: 8px;padding-top: 8px;">
-                      <img src="../images/QQCode.png"style="height:100px">
-                      <p style="margin-bottom: 8px;">QQ</p>
-                    </div>
-                  </a-col>
-                  <a-col :span="12">
                     <div class="wxcode" style="text-align: center;background: #f7f7f7;border: 1px solid #e8e8e8;width: 124px; margin: 0 auto;border-radius: 8px;padding-top: 8px;">
                       <img src="../images/wxCode.png" style="height:100px">
                       <p style="margin-bottom: 8px;">微信</p>
+                    </div>
+                  </a-col>
+                  <a-col :span="12">
+                    <div class="QQcode" style="text-align: center;background: #f7f7f7;border: 1px solid #e8e8e8;width: 124px; margin: 0 auto;border-radius: 8px;padding-top: 8px;">
+                      <img src="../images/QQCode.png"style="height:100px">
+                      <p style="margin-bottom: 8px;">QQ</p>
                     </div>
                   </a-col>
                 </a-row>
